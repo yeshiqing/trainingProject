@@ -1,0 +1,20 @@
+body{
+ background: #e7e7e7;
+}
+h1{
+	text-align: center;
+}
+li{
+	/*display: inline-block;*/
+	position:relative;
+	left:20%;
+	margin-bottom: 15px;
+	list-style-type: none;
+
+
+}
+li::before{
+	color:#222;
+	content: ">> ";
+
+}

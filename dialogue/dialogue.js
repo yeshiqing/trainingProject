@@ -51,10 +51,23 @@ Dialog.prototype.init =function(){
 
 Dialog.prototype.show = function(){
 	this.ref.css('display','block');
+	this.ref.animate({
+		opacity: 1,
+		width: 600,
+		height:281
+	},130,"linear");
+
 }
 
 Dialog.prototype.hide = function(){
-	this.ref.css('display','none');
+	var _dialog= this.ref;
+	this.ref.animate({
+		opacity:0,
+		height:0,
+		width:0}
+	,90,"swing",function(){_dialog.css('display','none');});
+	
+
 }
 
 

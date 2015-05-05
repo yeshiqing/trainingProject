@@ -8,6 +8,7 @@ body{
 	margin: 100px auto 0 auto;
 	box-shadow:4px 2px 12px #ccc;
 	display: none;
+	opacity:0;
 	z-index: 100;
 	background: #fff;
 }
@@ -48,11 +49,23 @@ body{
 
 input{
 	position:absolute;
-	top:0;
+	width:364px;
+	height:38px;
 	left:50%;
-	margin-left=-28px;
+	top:50%;
+	margin-left:-182px;
+	margin-top:-19px;
 	background: #fff;
 	z-index:1;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+	text-align:center;
+	cursor:pointer;
+
+
+	
+
 
 }
 

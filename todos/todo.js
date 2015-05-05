@@ -194,12 +194,12 @@ TodoItem.prototype.init = function(){
 	}, false);
 
 	//绑定双击修改事件
-	// ele.querySelector('.item-text').addEventListener('click',function(e){
-	//  	e.target.setAttribute('contenteditable','true');
-	//  },false);
-	// ele.querySelector('.item-text').addEventListener('blur',function(e){
-	// 	e.target.setAttribute('contenteditable','false');
-	// },false)
+	ele.querySelector('.item-text').addEventListener('click',function(e){
+	 	e.target.setAttribute('contenteditable','true');
+	 },false);
+	ele.querySelector('.item-text').addEventListener('blur',function(e){
+		e.target.setAttribute('contenteditable','false');
+	},false)
 
 
 }

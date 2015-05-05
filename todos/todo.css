@@ -96,10 +96,10 @@ input{
   color: #a9a9a9;
   font-size: 20px;
   border-bottom: dashed 1px #ccc;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 .todo-item .status{
