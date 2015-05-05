@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="author"  content="pageye">
+	<meta name="keywords" content="todos">
+	<title>ToDos</title>
+	<link rel="stylesheet" type="text/css" href="todo.css">
+</head>
+<body>
+	<div id="test" class="todo-container">
+		<h1>todos</h1>
+		<div class="todo-banner"></div>
+		<div class="todo-content">
+			<div class="todo-input">
+				<label class="todo-toggle"></label>
+				<input type="text" placeholder="What needs to be done?"/>
+			</div>
+			<ul class="todo-items">
+
+			</ul>
+			<div class="seperator"></div>
+		</div>
+		<div class="todo-summary">
+			<div class="todo-left">
+				<span class="active-num">0</span> items left
+			</div>
+			<div class="todo-filters">
+				<span class="switch switch-all current">All</span>
+				<span class="switch switch-active">Active</span>
+				<span class="switch switch-complete">Completed</span>
+			</div>
+			<div class="todo-clear" >
+				Clear completed <span class="complete-wrap">(<label class="complete-num">0</label>)</span>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<div>Double-click to edit a todo</div>
+		<div>
+			Created by <a href="https://github.com/pageye123">pageye</a>
+		</div>
+	</div>
+	
+	<script src="jquery.js"></script>
+	<script type="text/javascript" src="todo.js"></script>
+	<script>
+	var todo = new Todo('test');
+	todo.add('item1');
+
+	</script> 
+	
+
+
+
+</body>
+</html>

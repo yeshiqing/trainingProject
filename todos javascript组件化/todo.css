@@ -1,0 +1,239 @@
+body{
+	margin: 0;
+	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 1.4;
+	background: #eaeaea ;
+}
+
+.todo-container{
+	position: relative;
+	width: 550px;
+	margin: 50px auto;
+	
+}
+
+h1{
+	font-size: 70px;
+	font-weight: bold;
+	text-align: center;
+	color: #b3b3b3;
+	color: rgba(255, 255, 255, 0.8);
+	text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
+	margin-bottom: 0px;
+}
+
+.todo-content{
+	position: relative;
+	box-shadow:  3px 4px 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.seperator{
+	position: absolute;
+	left: 40px;
+	top: 0;
+	bottom: 0;
+	width: 2px;
+	border-left: solid 1px #EFD0D0;
+	border-right: solid 1px #EFD0D0;
+}
+
+.todo-banner{
+	height: 15px;
+  border-bottom: 1px solid #6c615c;
+  background: #8d7d77;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(132, 110, 100, 0.8)),to(rgba(101, 84, 76, 0.8)));
+  background: -webkit-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+  background: linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#9d8b83', EndColorStr='#847670');
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.todo-input{
+	background: rgba(255, 255, 255, 0.9);
+	position: relative;
+	cursor: pointer;
+}
+
+.todo-toggle{
+	position: absolute;
+	left: 15px;
+	top: 10px;
+  color: #d9d9d9;
+  cursor: pointer;
+	transform: rotate(90deg);
+}
+
+.todo-toggle.complete{
+	color: #737373;
+}
+
+.todo-toggle::before{
+	content: '»';
+  font-size: 28px;
+}
+
+input{
+	width: 100%;
+	padding: 16px 16px 16px 60px;
+	font-size: 24px;
+	border: none;
+	outline: none;
+	background: rgba(0, 0, 0, 0.05);
+	box-sizing: border-box;
+}
+
+.todo-items{
+	margin: 0px;
+	padding-left: 0;
+	list-style: none;
+	background: #fdfdfd;
+}
+
+.todo-item{
+	position: relative;
+  padding: 15px 60px 15px 55px;
+  color: #a9a9a9;
+  font-size: 20px;
+  border-bottom: dashed 1px #ccc;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.todo-item .status{
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: 18px;
+  left: 13px;
+  cursor: pointer;
+}
+
+.todo-item .status::before{
+	content: '✔';
+	color: #d9d9d9;
+	font-size: 20px;
+}
+
+.todo-item.done .status::before{
+	color: #85ada7;
+	text-shadow: 0 1px 0 #669991;
+}
+
+.todo-item .delete{
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	top: 15px;
+	right: 30px;
+	text-align: center;
+	line-height: 30px;
+	color: #a88a8a;
+	cursor: pointer;
+	font-size: 22px;
+	opacity: 0;
+	transform: scale(0.5);
+	transition: 0.5s all;
+}
+
+.todo-item:hover .delete{
+	opacity: 1;
+	transform: scale(1);
+}
+
+.todo-item .delete:hover{
+	text-shadow: 0 0 1px #000, 0 0 10px rgba(199, 107, 107, 0.8);
+	transform: scale(1.3);
+}
+
+.todo-item .delete::after{
+	content: '✖';
+}
+
+.todo-item.done span{
+	text-decoration: line-through;
+}
+
+.todo-item:last-child{
+	border-bottom: none;
+}
+
+.todo-summary{
+	color: #777;
+  padding: 0 15px;
+  position: absolute;
+  right: 0;
+  bottom: -31px;
+  left: 0;
+  height: 20px;
+  
+}
+
+.todo-summary::before{
+	content: '';
+  position: absolute;
+  right: 0;
+  bottom: 31px;
+  left: 0;
+  height: 50px;
+  z-index: -1;
+  box-shadow: 0 6px 0 -3px rgba(255, 255, 255, 0.8), 0 7px 1px -3px rgba(0, 0, 0, 0.3), 0 43px 0 -6px rgba(255, 255, 255, 0.8), 0 44px 2px -6px rgba(0, 0, 0, 0.2);
+}
+
+.todo-left{
+	float: left;
+}
+
+.todo-left span{
+	font-weight: bold;
+}
+
+.todo-filters{
+	display: inline-block;
+	margin-left: 90px;
+}
+
+.switch{
+	cursor: pointer;
+	padding: 0 3px;
+	opacity: 0.8;
+}
+
+.switch:hover{
+	opacity: 1;
+}
+
+.switch.current{
+	font-weight: bold;
+}
+
+.todo-clear{
+	float: right;
+  position: relative;
+  line-height: 20px;
+  text-decoration: none;
+  background: rgba(0, 0, 0, 0.1);
+  font-size: 11px;
+  padding: 0 10px;
+  border-radius: 3px;
+  box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: none;
+}
+
+.todo-clear:hover{
+	background: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+.footer{
+	margin-top: 70px;
+}
+
+.footer, .footer a{
+	font-size: 12px;
+	text-align: center;
+	color: #a6a6a6;
+}
