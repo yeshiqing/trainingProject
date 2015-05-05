@@ -148,9 +148,9 @@ Todo.prototype.refresh = function(){
 	this.completeNumWrap.innerText = completeNum;
 
 	if(completeNum === 0){
-		this.completeWrap.style.display = 'none';
+		document.querySelector('.todo-clear').style.display = 'none';
 	}else{
-		this.completeWrap.style.display = 'inline';
+		document.querySelector('.todo-clear').style.display = 'inline';
 	}
 }
 
