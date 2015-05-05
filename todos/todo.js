@@ -5,7 +5,7 @@ function Todo(id){
 	this.completeWrap = this.ref.querySelector('.complete-wrap');
 	this.completeNumWrap = this.ref.querySelector('.complete-num');
 
-	this.items = {};//定义this.items一个空对象，里面装的什么属性可以临时添加，比如我添加this.items.id
+	this.items = {};
 	this.index = 0;
 
 	this.init();
@@ -28,8 +28,6 @@ Todo.prototype.init = function(){
 		input.value = '';
 	}, false);
 	//切换所有的状态
-	//人家用的是this.ref想想差距。
-	
 	document.getElementsByClassName('todo-toggle')[0].addEventListener('click',function(e){
 		if(this.className.indexOf(' complete') === -1){
 			this.className += " complete";
@@ -38,14 +36,17 @@ Todo.prototype.init = function(){
 					if(!_todo.items[id].isActive) continue;
 					_todo.items[id].switchStatus();
 				}
+			document.querySelector('.todo-clear').style.display="inline-block";
 
 		}else{
-			this.className = this.className.replace(' complete',"");//想想这块用jquery怎么写添减className
+			this.className = this.className.replace(' complete',"");
 			
 			for(var id in _todo.items){
 					if(_todo.items[id].isActive) continue;
 					_todo.items[id].switchStatus();
 				}
+			document.querySelector('.todo-clear').style.display="none";
+
 		}
 
 	}, false);
@@ -99,14 +100,6 @@ Todo.prototype.init = function(){
 		All.className +=  ' current';
 	},false);
 
-	//双击Li的视窗对文字进行编辑
-	// var Li = document.getElementsByTagName('li');//不能用这句，因为这句是对dom进行操作。而实际上dom中的li没有
-	// for(var i=0;i<Li.length;i++){
-	// 	Li[i].on('dblclick',function(e){
-	// 		e.target.setAttribute('contenteditable','true');
-	// 	},false);
-	// }
-	//老师把这部分写在了TodoItem.init中
 	 	
 	
 	//点击clear进行清除
@@ -124,22 +117,21 @@ Todo.prototype.init = function(){
 
 Todo.prototype.add = function(text){
 	var id = 'item' + this.index++;
-	var newItem = new TodoItem(id, text, this);//实例化一个新的item
-	this.items[id] = newItem;//用this.items[id]是去调取这个id属性(注意id是个字符串变量)，这个id属性是临时赋予的属性，这个属性是对应的新建出来对象，id是人为造出来的属性。
-	// 注意啊，这里的id做了两个作用，一个是作为newItem的一个属性，id属性。一个是作为Todo的属性，也叫id属性，但是这个id属性的内容是newItem
+	var newItem = new TodoItem(id, text, this);
+	this.items[id] = newItem;
 	this.refresh();
 };
 
 Todo.prototype.remove = function(item_dom){
 	this.itemsWrap.removeChild(item_dom);
-	delete this.items[item_dom.id]; //删去id是为了refresh中计数   为什么是item_dom.id不直接是id要好好想
+	delete this.items[item_dom.id]; 
 	this.refresh();
 };
 
 
 
 Todo.prototype.refresh = function(){
-	var items = this.items;//this.items一先开始有定义，是items的集合，非常有学问的。在add部分，remove部分都有提items
+	var items = this.items;
 
 	var activeNum = 0,
 			completeNum = 0;
@@ -150,7 +142,7 @@ Todo.prototype.refresh = function(){
 		}else{
 			completeNum++;
 		}
-	}//看看有多少个id ，遍历一遍，计数作用
+	}
 
 	this.activeNumWrap.innerText = activeNum;
 	this.completeNumWrap.innerText = completeNum;
@@ -202,12 +194,12 @@ TodoItem.prototype.init = function(){
 	}, false);
 
 	//绑定双击修改事件
-	ele.querySelector('.item-text').addEventListener('click',function(e){
-	 	e.target.setAttribute('contenteditable','true');
-	 },false);
-	ele.querySelector('.item-text').addEventListener('blur',function(e){
-		e.target.setAttribute('contenteditable','false');
-	},false)
+	// ele.querySelector('.item-text').addEventListener('click',function(e){
+	//  	e.target.setAttribute('contenteditable','true');
+	//  },false);
+	// ele.querySelector('.item-text').addEventListener('blur',function(e){
+	// 	e.target.setAttribute('contenteditable','false');
+	// },false)
 
 
 }
