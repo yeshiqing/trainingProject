@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="PageYe">
+	<meta name="keywords" content="Shuffling figure">
+	<title>轮播图</title>
+	<link rel="stylesheet" href="lunbotu.css">
+	<style>
+		li{
+			position:fixed;
+			left:0;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul id="test" class="switchable-container" style = "left: 0">
+			<li data-index=0 style="background:#666;" class="switchable-item">0</li>
+			<li data-index=1 style="background:#777;" class="switchable-item">1</li>
+			<li data-index=2 style="background:#888;" class="switchable-item">2</li>
+			<li data-index=3 style="background:#999;" class="switchable-item">3</li>
+			<li data-index=4 style="background:#bbb;" class="switchable-item">4</li>
+		</ul>
+		<div id="pre"><</div>
+		<div id="next" >></div>
+		<div class="toggles">
+			<div data-index="0" class="switchable-indicator current"></div>
+			<div data-index="1" class="switchable-indicator"></div>
+			<div data-index="2" class="switchable-indicator"></div>
+			<div data-index="3" class="switchable-indicator"></div>
+			<div data-index="4" class="switchable-indicator"></div>
+		</div>
+	</div>
+
+	<div class="footer">
+	<p>created by <a href="https://github.com/pageye123" target="_blank" title="github">PageYe</a></p>
+	</div>
+
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="lunbotu.js"></script>
+	<script>
+		var lunbo= new Lunbo('test',true);
+		
+
+		
+
+		
+	</script>
+</body>
+</html>
