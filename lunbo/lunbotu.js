@@ -20,13 +20,13 @@ Lunbo.prototype.init = function(){
 		var firstval=Number($('li:first-child').attr('data-index'));
 		if(clickval>firstval){
 			_lunbo.Moveleft(clickval,firstval);
-			clearInterval(timer);
+			
 			
 			
 		}
 		if(firstval>clickval){
 			_lunbo.Moveright(clickval,firstval);
-			clearInterval(timer);
+			
 			
 		}
 	});
@@ -100,8 +100,8 @@ Lunbo.prototype.autoplay=function(autostatus){
 	if(autostatus===true) var timer = setInterval(fn,3000);
 	if(autostatus===false) clearInterval(timer);
 
-	//鼠标移到li上轮播自动停止
-	$('ul').on("mouseover",function(e){
+	//鼠标移到图片时轮播自动停止（实际上我针对div.wrap设置的）
+	$('div').on("mouseover",function(e){
 		clearInterval(timer);
 	})
 	//鼠标移开轮播继续
