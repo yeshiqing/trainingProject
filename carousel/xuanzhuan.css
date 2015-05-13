@@ -1,0 +1,298 @@
+h1{	
+	display:block;
+	margin:0 auto;
+	text-align: center;
+	font-family:Tangerine;
+	font-weight: 900;
+	font-size:50px;
+}
+
+p{
+	text-align:center;
+	line-height:20px;
+	margin:80px auto 0 auto;
+}
+#input2:before{
+	position:absolute; 
+	content: attr(min);
+	font-size: 20px;
+	color:black;
+	padding-right: 10px; 
+	margin-top:20px;
+}
+
+#input2:after{ 
+	position:absolute;
+	content: attr(max);
+	font-size: 20px;
+	color:black;
+	padding-left: 10px;
+	margin-top:20px;
+	right:0px;
+}
+
+#input1{
+	display:block;
+	width:200px;
+	height:30px;
+	border:1px solid #aaa;
+	margin: 0 auto;
+	text-align:center;
+	position:relative;
+	font-size: 12px;
+
+}
+
+#input2{
+	display:inline-block;
+	position:absolute;
+
+	width:220px;
+	margin: -20px 0 0 230px;
+
+}
+
+@-webkit-keyframes t1{
+	from{-webkit-transform:rotateY(0deg) }
+	to{-webkit-transform:rotateY(360deg) }
+}
+
+
+
+.container {
+	  width: 210px;
+	  height: 140px;
+	  position: relative;
+	  -webkit-perspective: 1000px;
+      margin:70px auto;
+
+
+	}
+
+.carousel1 {
+	  width: 100%;
+	  height: 100%;
+	  position: absolute;
+	  transform-style: preserve-3d;
+	   -webkit-animation-name: t1;
+  -webkit-animation-duration: 20s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-fill-mode:forwards;
+  -webkit-animation-direction: normal;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-play-state:running;
+		
+	}
+.translateZ{
+	width: 210px;
+	  height: 140px;
+	  position: relative;
+	  margin:70px auto;
+	-webkit-perspective: 1000px;
+	transform-style: preserve-3d;
+	-webkit-transform:translateZ(-306px) rotateZ(-90deg);
+}
+
+#carousel figure{
+	position:absolute;
+	width:170px;
+	height:100px;
+	border: 1px solid #000;
+	margin:10px;
+	text-align: center;
+	font-size: 19px;
+	line-height: 100px;	
+	color:#111;
+	opacity:0.4;
+
+}
+
+.control{
+	position:absolute;
+	background-image: url('img/an4.png') ;
+	background-repeat: no-repeat;
+	width:200px;
+	height:80px;
+	background-size: 200px;
+	margin-right:0px;
+	cursor: pointer;	
+	left:0px;
+	top:0px;
+
+}
+
+.containerSection{	
+	display: block;
+	width:200px;
+	height:80px;
+	margin-right:0px;
+	position: relative;
+	margin:0 0 0 auto;
+	background-image: url('img/an1.jpg');
+	background-repeat: repeat;
+	background-size: 100px;
+	border-radius: 148px;
+	overflow: hidden;
+	
+
+}
+
+.circle{
+	position:absolute;
+	background-image: url('img/an1.png');
+	width:100px;
+	height:70px;
+	background-repeat: no-repeat;
+	left:3px;
+	top:6px;
+	margin-left: 121px;
+
+
+}
+
+.bar1{
+	position:absolute;
+	background-image: url('img/an3.png');
+	background-repeat: no-repeat;
+	background-size: 139px;
+	width:158px;
+	height:14px;
+	left:26px;
+	top:7px;
+	transition:1s ease-in;
+	-webkit-transform: rotate(-5deg);
+}
+.bar2{
+	position:absolute;
+	background-image: url('img/an3.png');
+	background-repeat: no-repeat;
+	background-size: 139px;
+	width:158px;
+	height:14px;
+	left:26px;
+	top:65px;
+	-webkit-transform: rotate(5deg);
+}
+
+@-webkit-keyframes rotate1{
+	0%{-webkit-transform: rotate(-5deg);}
+	50%{-webkit-transform: rotate(0deg);}
+	100%{-webkit-transform: rotate(5deg);}
+}
+
+.bar1rotate{
+	-webkit-animation-name:rotate1;
+     -webkit-animation-duration: 1s;
+     -webkit-animation-fill-mode:forwards;
+     -webkit-animation-timing-function: linear;
+     
+}
+
+.bar2rotate{
+	-webkit-animation-name:rotate1;
+     -webkit-animation-duration: 1s;
+     -webkit-animation-direction: reverse;
+     -webkit-animation-fill-mode:forwards;
+     -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes rotate2{
+	0%{-webkit-transform: rotate(5deg);}
+	50%{-webkit-transform: rotate(0deg);}
+	100%{-webkit-transform: rotate(-5deg);}
+}
+
+.bar_1rotate{
+	-webkit-animation-name:rotate2;
+     -webkit-animation-duration: 1s;
+     -webkit-animation-fill-mode:forwards;
+     -webkit-animation-timing-function: linear;
+}
+
+.bar_2rotate{
+	-webkit-animation-name:rotate2;
+     -webkit-animation-duration: 1s;
+     -webkit-animation-direction: reverse;
+     -webkit-animation-fill-mode:forwards;
+     -webkit-animation-timing-function: linear;
+}
+
+.off{
+	position:absolute;
+	top:86px;
+	left:40px;
+	width:30px;
+	height:30px;
+	color:black;
+	border: 2px solid #000;
+	border-radius:15px;
+	text-align: center;
+	line-height: 30px;
+	
+
+}
+.on{
+	position:absolute;
+	top:86px;
+	left:130px;
+	width:30px;
+	height:30px;
+	color:black;
+	border: 2px solid #000;	
+	border-radius:15px;
+	text-align: center;
+	line-height: 30px;
+	
+}
+.controlcontainer{
+	position:relative;
+	width:200px;
+	height:120px;
+	margin-right: 231px;
+	margin-left:auto;
+	margin-top: -51px;
+}
+
+.green{
+
+	background: #d2ff52; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  #d2ff52 0%, #91e842 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#d2ff52), color-stop(100%,#91e842)); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  #d2ff52 0%,#91e842 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  #d2ff52 0%,#91e842 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  #d2ff52 0%,#91e842 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  #d2ff52 0%,#91e842 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+.red{
+	background: #ff3019; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  #ff3019 0%, #cf0404 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ff3019), color-stop(100%,#cf0404)); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  #ff3019 0%,#cf0404 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  #ff3019 0%,#cf0404 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  #ff3019 0%,#cf0404 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  #ff3019 0%,#cf0404 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+@-webkit-keyframes t2{
+	from{-webkit-transform:rotateY(0deg);}
+	to{-webkit-transform:rotateY(360deg);}
+}
+
+.carousel2 {
+	  width: 100%;
+	  height: 100%;
+	  position: absolute;
+	  transform-style: preserve-3d;
+	   -webkit-animation-name: t2;
+   -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-play-state:running;
+
+	}
+
