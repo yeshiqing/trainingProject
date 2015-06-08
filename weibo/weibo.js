@@ -304,22 +304,29 @@ $('.kind a:nth-child(1)').on('click',function(e){
 		$('.basic-func-play').css('display','inline-block');
 		$('.basic-func-stop').css('display','none');
 	})
-	// 和人家的拖动还是有区别啊，不够细腻，人家不在上面滚动也可以
+
+	// 够细腻，终于完成了音量槽的设置
 	$('.volume-btn').mousedown(function(e){
 		var flag=false;
-		var before_x=e.pageX;
 		var start=setTimeout(function(){
 					flag=true;
 					$(window).mousemove(function(f){
-						after_x=f.pageX;
-						var dis=after_x-before_x;
-						btn_right=29.5-dis;
-						if(btn_right>=66.5){
+						var mouseX= f.pageX;
+						var volumelevel_LX=$('.volume-adjust').offset().left;
+						var allwidth=$('.volume-adjust').width();	
+						var volumelevel_RX=volumelevel_LX+allwidth;
+						var Rdis=volumelevel_RX-mouseX;
+						var Ldis=mouseX-volumelevel_LX;
+
+						if(mouseX>=volumelevel_RX){
+							$('.volume-btn').css('right',"-7.5px");
+							$('.volume-level').css('width','100%');
+						}else if(mouseX<=volumelevel_LX){
 							$('.volume-btn').css('right',"66.5px");
-						}else if(btn_right<=-7.5){
-							$('.volume-btn').css('right',0+"px");
-						}else if(-7.5<btn_right<66.5){
-							$('.volume-btn').css('right',btn_right+'px');
+							$('.volume-level').css('width','0%');
+						}else if(volumelevel_LX<mouseX<volumelevel_RX){
+							$('.volume-btn').css('right',(Rdis-7.5)+'px');
+							$('.volume-level').css('width',((Ldis/allwidth)*100)+'%');
 						}
 						$(window).on('mouseup',function(){
 							$(window).unbind('mousemove');
