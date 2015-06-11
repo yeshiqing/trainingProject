@@ -220,14 +220,14 @@ ol,ul,li{
 
 
 } 
-
+.ui-scroll::-webkit-scrollbar { width: 0px;}
  /*设置滚动条的样式 */.ui-scroll.scrollchange::-webkit-scrollbar { width: 5px;}
 
-/* 滚动槽 */.ui-scroll.scrollchange::-webkit-scrollbar-track {    -webkit-box-shadow: inset 5px 0 6px rgba(255,255,255,1); 
+/* 滚动槽 */.ui-scroll.scrollchange::-webkit-scrollbar-track {box-shadow: inset 5px 0 6px rgba(255,255,255,1); 
 	border-radius: 10px;}
-/* 滚动条滑块 */.ui-scroll.scrollchange::-webkit-scrollbar-thumb {    border-radius: 10px;    background: rgba(0,0,0,0.1);    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);}
-.ui-scroll.scrollchange::-webkit-scrollbar-thumb:window-inactive {    background: rgba(255,0,0,0.4);}
-.ui-scroll.scrollchange::-webkit-scrollbar:horizontal{  height: 0.2em;}
+/* 滚动条滑块 */.ui-scroll.scrollchange::-webkit-scrollbar-thumb {    border-radius: 10px;    background: rgba(0,0,0,0.1);    box-shadow: inset 0 0 6px rgba(0,0,0,0.5);}
+
+
 
 .main-left fieldset{
 	border:none ;
