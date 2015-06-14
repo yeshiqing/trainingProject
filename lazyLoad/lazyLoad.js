@@ -8,7 +8,7 @@
 				callback:null
 			};
 			var conf=$.extend({},defaultconf,option);
-			conf.cache=[];
+				conf.cache=[];
 
 			var callback=function(ele){
 				if($.isFunction(conf.callback)){
@@ -26,6 +26,7 @@
 			var container=conf.container;
 			
 			
+			var flag=0;
 
 			var loading= function(e){
 
@@ -54,20 +55,38 @@
 									var data_src=$ele.attr('data-src');
 									$ele.attr('src',data_src);									
 									callback($ele);
-									data.obj=null;									
+									data.obj=null;
+									flag++;
+									// //优化 解绑事件 方法一
+									// if(flag==conf.cache.length){
+									// 	container.off('scroll',loading);
+									// };
 								}
 							}
 					 });
-					//解绑事件
-					var a=0;
-					for(i=0;i<conf.cache.length;i++){
-						if(!(conf.cache[i].obj)){
-							a++;
+					// // 解绑事件，我写的很复杂在于全部遍历了一遍。没必要，找到不是null的推出就完了。
+					// var a=0;
+					// for(i=0;i<conf.cache.length;i++){
+					// 	if(!(conf.cache[i].obj)){
+					// 		a++;
+					// 	}
+					// }					 
+					// if(a==conf.cache.length){
+					// 	container.off('scroll',loading);
+					// };
+
+					// 优化解绑事件 方法二 标志位方法
+					var flag=true;
+					for( var i=0;i<conf.cache.length;i++){
+						if(conf.cache[i].obj){
+							flag=false;
+							break;
 						}
-					}					 
-					if(a==conf.cache.length){
+					}
+					if(flag){
 						container.off('scroll',loading);
-					};
+					}
+					
 				}
 				loading();
 				//函数节流throttle
