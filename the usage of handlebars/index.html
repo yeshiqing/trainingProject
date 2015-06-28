@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>handlerbars模板引擎的使用</title>
+	<style type="text/css">
+
+
+	td{
+		text-align: center;
+		border:1px solid #333;
+	}
+	caption{
+		margin:10px 0 0 0;
+		border:1px solid #333;
+	}
+	table{
+		width:100%;
+		border:1px solid #333;
+	}
+	th{
+		border:1px solid #333;
+	}
+	#table-container{
+		width:50%;
+		margin:100px auto 1px;
+		text-align: center;
+	}
+	</style>
+</head>
+<body>
+	<div style="text-align:center">
+		<div id="table-container">
+			<table class="table" bodrder="1px" cellspacing="0" > 
+				<caption><h1>学生基本信息表</h1></caption>
+				<thead>
+					<tr>
+						<th>姓名</th>
+						<th>性别</th>
+						<th>年龄</th>
+						<th>备注</th>
+					</tr>
+				</thead>
+				<tbody id="tbody-data">
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="handlebars.js"></script>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script id="handlebars" type="text/x-handlebars-template">
+		{{#each student}}
+		<tr>
+			<td>{{name}}</td>
+			<td>{{sex}}</td>
+			<td>{{age}}</td>
+		</tr>
+		{{/each}}
+	</script>
+
+	<script type="text/javascript">
+	var data={
+		student:[
+			{
+				name:"张三", 
+				sex:"男", 
+				age:"21"
+			},
+			{
+				name:"李四",
+				sex:"女",
+				age:"23"
+			},
+			{
+				name:"王五",
+				sex:"男",
+				age:"24"
+			},
+			{
+				name:"赵六",
+				sex:"男",
+				age:"50",
+			},
+		]
+	}
+
+	var source=$("#handlebars").html();
+	var template=Handlebars.compile(source);
+	html = template(data);
+	$('#tbody-data').append(html);
+	</script>
+</body>
+</html>
