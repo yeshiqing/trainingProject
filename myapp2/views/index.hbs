@@ -1,0 +1,35 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+<p>你是第一个拜访者</p>
+<div id="myDiv"></div>
+
+
+
+<script type="text/javascript">
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function (){
+		console.log(xhr.readyState);
+		console.log(xhr.status);
+		if(xhr.readyState === 4){
+		var result = JSON.parse(xhr.responseText);
+		console.log(result);
+	}
+	}
+	// open ，send两个方法将请求发送到服务器。open做的是初始化信息的工作，send做的是发送工作。
+	// open接受三个数据，一个是method，客户端向服务器发送请求的方式有很多。get、post是最常见的两个。第二个是路径（相对，绝对）。第三个是是否异步
+	xhr.open('get','/json1',true);
+	// 【问题遗留：成功解决】为什么要用延时呢，因为必须得在readyState===4之后，也就是请求已完成，相应已就绪，才能获得响应主体返回的文本xhr.responseText    
+	setTimeout(function(){
+		document.getElementById("myDiv").innerHTML=xhr.statusText;
+	},1000)
+
+	xhr.send();
+	
+	
+
+</script>
+
+
+<script src="/javascripts/jquery-1.11.2.js">
+	
+</script>
