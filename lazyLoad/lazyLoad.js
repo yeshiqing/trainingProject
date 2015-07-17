@@ -15,7 +15,7 @@
 					conf.callback.call(ele);
 				}
 			}
-
+			
 			this.each(function(ele){
 				var data={
 					obj:$(this),

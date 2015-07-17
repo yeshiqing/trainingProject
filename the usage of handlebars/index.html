@@ -29,6 +29,7 @@
 	</style>
 </head>
 <body>
+	
 	<div style="text-align:center">
 		<div id="table-container">
 			<table class="table" bodrder="1px" cellspacing="0" > 
@@ -52,6 +53,7 @@
 	<script type="text/javascript" src="handlebars.js"></script>
 	<script type="text/javascript" src="jquery.js"></script>
 	<script id="handlebars" type="text/x-handlebars-template">
+		
 		{{#each student}}
 		<tr>
 			<td>{{name}}</td>
@@ -63,6 +65,7 @@
 
 	<script type="text/javascript">
 	var data={
+		
 		student:[
 			{
 				name:"张三", 
@@ -90,6 +93,7 @@
 	var source=$("#handlebars").html();
 	var template=Handlebars.compile(source);
 	html = template(data);
+
 	$('#tbody-data').append(html);
 	</script>
 </body>
