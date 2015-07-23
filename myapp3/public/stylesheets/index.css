@@ -28,6 +28,9 @@ h4{
 	text-align:center;
 	
 }
+h5{
+	color:white;
+}
 @media(max-width: 768px){
 	h1{
 	display:block;
@@ -432,13 +435,36 @@ border-radius:10px;
 .blog{
 	width:190px;
 	height:200px;
-	/*background:black;*/
+	background:black;
 	display:inline-block;
 	float:left;
 	margin:0 95px 0;
 	opacity: 0.8;
 	border:1px solid #333;
 
+}
+.blog p{
+	display:block;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	width:185px;
+	height:100px;
+	text-align: center;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e1ffff+0,e1ffff+7,e1ffff+47,e6f8fd+100,fdffff+100,bee4f8+100,b1d8f5+100,bee4f8+101 */
+	color: #e1ffff; /* Old browsers */
+	color: -moz-radial-gradient(center, ellipse cover,  #e1ffff 0%, #e1ffff 7%, #e1ffff 47%, #e6f8fd 100%, #fdffff 100%, #bee4f8 100%, #b1d8f5 100%, #bee4f8 101%); /* FF3.6+ */
+	color: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#e1ffff), color-stop(7%,#e1ffff), color-stop(47%,#e1ffff), color-stop(100%,#e6f8fd), color-stop(100%,#fdffff), color-stop(100%,#bee4f8), color-stop(100%,#b1d8f5), color-stop(101%,#bee4f8)); /* Chrome,Safari4+ */
+	color: -webkit-radial-gradient(center, ellipse cover,  #e1ffff 0%,#e1ffff 7%,#e1ffff 47%,#e6f8fd 100%,#fdffff 100%,#bee4f8 100%,#b1d8f5 100%,#bee4f8 101%); /* Chrome10+,Safari5.1+ */
+	color: -o-radial-gradient(center, ellipse cover,  #e1ffff 0%,#e1ffff 7%,#e1ffff 47%,#e6f8fd 100%,#fdffff 100%,#bee4f8 100%,#b1d8f5 100%,#bee4f8 101%); /* Opera 12+ */
+	color: -ms-radial-gradient(center, ellipse cover,  #e1ffff 0%,#e1ffff 7%,#e1ffff 47%,#e6f8fd 100%,#fdffff 100%,#bee4f8 100%,#b1d8f5 100%,#bee4f8 101%); /* IE10+ */
+	color: radial-gradient(ellipse at center,  #e1ffff 0%,#e1ffff 7%,#e1ffff 47%,#e6f8fd 100%,#fdffff 100%,#bee4f8 100%,#b1d8f5 100%,#bee4f8 101%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1ffff', endColorstr='#bee4f8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	margin:0;
+}
+
+.blog a{
+	display:block;
 }
 
 
@@ -510,3 +536,6 @@ p{
 }
 
 
+.carousel-caption p{
+	font-size:2em;
+}

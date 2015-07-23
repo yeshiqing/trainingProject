@@ -1,14 +1,16 @@
-var preloader = setTimeout(
-	function(){
-		$('#load').css('display','none');
-		$('#preloader').addClass('preloadfade');
-		setTimeout(function(){
-			$('#preloader').css('display','none');
-			$('h1').removeClass('typing-origin');
-			$('h1').addClass('typing');
-			setTimeout(function(){$('h1').css('border','none')},4000)
-		},1800);
-	},2900);
+// var preloader = setTimeout(
+// 	function(){
+// 		$('#load').css('display','none');
+// 		$('#preloader').addClass('preloadfade');
+// 		setTimeout(function(){
+// 			$('#preloader').css('display','none');
+// 			$('h1').removeClass('typing-origin');
+// 			$('h1').addClass('typing');
+// 			setTimeout(function(){$('h1').css('border','none')},4000)
+// 		},1800);
+// 	},2900);
+
+$('#preloader').css('display','none');
 
 // 监视滚动条以执行navbar的动作
 $(document).on('scroll', function(e) {
@@ -33,6 +35,16 @@ $(document).on('scroll', function(e) {
 		diff = title_top - scroll_top;
 	if (diff > 0 && diff < window_height) {
 		$('#skill-head').addClass('skill-head');
+	}
+});
+
+$(document).on('scroll', function(e) {
+	var scroll_top = $(document).scrollTop(),
+		title_top = $('#blog-head').position().top,
+		window_height = $(window).height(),
+		diff = title_top - scroll_top;
+	if (diff > 0 && diff < window_height) {
+		$('#blog-head').addClass('skill-head');
 	}
 });
 

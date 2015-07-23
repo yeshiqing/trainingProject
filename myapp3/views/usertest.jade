@@ -1,0 +1,41 @@
+doctype html
+html
+	head
+		title mongoose数据操作测试
+	body
+		h1 mongoose数据操作测试
+		if oneUser
+			form(method="POST" action="/update")
+				input(type="hidden", name="oneUser[_id]", value="#{oneUser._id}")
+				.form-group
+					laber(for="inputTitle") 帐号
+					input(type="text" name="oneUser[name]" value="#{oneUser.name}")
+				.form-group
+					laber(for="inputTitle" ) 密码
+					input(type="text" name="oneUser[password]" value="#{oneUser.password}")
+				button(type="submit" style="margin:10px 0 0 135px") 修改数据
+		else
+			form(method="POST" action="/add")
+				.form-group
+					laber(for="inputTitle") 帐号
+					input(type="text" name="user[name]")
+				.form-group
+					laber(for="inputTitle" ) 密码
+					input(type="text" name="user[password]")
+				button(type="submit" style="margin:10px 0 0 135px") 增加数据
+			div 
+				h1 显示输入的数据
+				table
+					thead
+						tr
+							th 姓名
+							th 密码
+							th 修改
+							th 删除
+					tbody
+						each item in user
+							tr
+								td #{item.name}
+								td #{item.password}
+								td: a(target="_blank", href="./update/#{item._id}") 修改
+								td: a(target="_blank", href="./delete/#{item._id}") 删除

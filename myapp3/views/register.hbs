@@ -5,7 +5,7 @@
 </style>
 <h1>{{title}}</h1>
 
-<form method="POST" action="/register">
+<form method="POST" action="/register/add">
 	<table align="center" cellpadding="10" cellspacing="0">
 		<tr>
 			<th>用户名：</th>
@@ -26,6 +26,29 @@
 		</tr>
 	</table>
 </form>
+
+
+
+<div>
+	<table>
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>密码</th>
+				<th>删除</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each user}}
+			<tr>
+				<td>{{name}}</td>
+				<td>{{password}}</td>
+				<td><a href="./delete/{{_id}}" target="">删除</a></td>
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>
 
 <script src="/javascripts/jquery-1.11.2.js"></script>
 

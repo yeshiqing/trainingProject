@@ -41,12 +41,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
       	<li><a href="javascript:(0)">首页</a></li>
-      	<li><a href="/undone">博客</a></li>
-        <li><a href="/undone">留言板</a></li>
-      	<!-- <li><a href="">退出登录</a></li> -->
+      	<li><a href="/undone" target="_blank" >博客</a></li>
+        <li><a href="/undone" target="_blank" >留言板</a></li>
+        <li><a href="/usertest" target="_blank" >用户数据库</a></li>
+      	
         <li class="active login"><a href="javascript:void(0)">登录 <span class="sr-only">(current)</span></a></li>
         <li><a href="./register">注册</a></li>
-
+        <!-- li class=""><a href="">你好<p id="user"></p></a></li> -->
         <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">设置 <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -76,11 +77,11 @@
 
     <form method="post" class="navbar-form  " role="search">
       <div class="form-group">
-        <label for="username">用户名</label><input name="username" type="text" class="form-control" placeholder="请输入用户名">
+        <label for="username">用户名</label><input id="username" name="username" type="text" class="form-control" placeholder="请输入用户名">
         <div class="separator"></div>
-        <label for="password">密码</label><input name="password" type="password" class="form-control" placeholder="请输入密码">
+        <label for="password">密码</label><input id="password" name="password" type="password" class="form-control" placeholder="请输入密码">
       </div>
-      <button type="submit" class="btn btn-default">登录</button>
+      <button id="log_in" type="submit" class="btn btn-default">登录</button>
     </form>
   </div>
 </div>
@@ -126,7 +127,7 @@
 <!-- blogs-->
 
 
-  <div id="skill-head" class="">
+  <div id="blog-head" class="">
     <h3>my blogs</h3>
     <div class="down-icon"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
   </div>
@@ -134,12 +135,16 @@
 <div class="blogs-container">
   <div class="blog-wrap">
     <div class="blog">
-      
-      <a href="" title="阅读详情">阅读详情</a>
+      <h5><b>jquery不熟悉的方法（持续更新）</b>
+      <br></h5>
+      <p>jquery有一个筛选api find。</p>
+      <a href="http://www.cnblogs.com/pageye/p/4647059.html" target="_blank" title="阅读详情">阅读详情</a>
     </div>
     
     <div class="blog">
-      <a href="" title="阅读详情">阅读详情</a>
+    <h5><b>【原创】解决鼠标经过子元素触发mouseout，mouseover事件的问题</b></h5>
+    <p>我想实现的目标：当鼠标进入黑色框时，橙色框执行淡入动画；当黑色框范围移动的时候（即使经过粉色框，动画仍然不被触发）；当鼠标移出的时候，橙色方块消失。遇到的问题阐述：当鼠标移入黑色框的时候，橙色框执行淡入动画，但是当鼠标从黑色框经过粉色框的时候，橙色框就消失了，然后又执行一遍淡入动画。当鼠标从粉色框移出到黑色框的时候，橙色框的淡入动画又被执行。这不是我想要的。</p>
+      <a href="http://www.cnblogs.com/pageye/p/4656810.html" target="_blank" title="阅读详情">阅读详情</a>
     </div>
   </div>
 </div>
@@ -254,4 +259,18 @@
   $('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">');
   $('head').append('<link href="./images/favicon.ico" type="image/x-icon" rel=icon>');
   $('head').append('<link href="./images/favicon.ico" type="image/x-icon" rel="shortcut icon">');
+</script>
+<script>
+  $('#log_in').on('click',function(e){
+    var username=$('#username').val();
+    var password=$('#password').val();
+    if(!username){
+      alert('请输入用户名');
+    }
+    if(!password){
+      alert('请输入密码');
+    }
+    $('#user').text(username);
+  })
+
 </script>

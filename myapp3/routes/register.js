@@ -1,27 +1,45 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../routes/userdata.js');
 
 router.get('/', function(req, res, next) {
-  res.render('register', { title: '注册' });
+	User.find(function(err, user) {
+    res.render('register', {
+      user: user,title:'注册'})
+  })
+  
 });
 
-router.post('/', function(req, res, next){
+
+
+router.post('/add', function(req, res, next){
 	var username = req.body.username;
 	var password = req.body.password;
 	var repass = req.body.repassword;
-
 	var result = validate(username);
 
 	if(password !== repass){
 		res.send('密码不一致');
 	}
 
-	if(result){
-		res.redirect('/successregister');
-	}else{
-		res.send('用户名重复');
-	}
+	
+   if (!username) {
+    res.send('用户名不能为空');    
+  }
+  
+	var user = new User({name:username,password:password});
+	user.save(function(err){
+    if (err) {
+      console.log('保存失败')
+    }
+    console.log('数据保存成功')
+	})
+	
+	return res.redirect('/successregister');
+
 });
+
+
 
 router.get('/getUser', function (req, res, next) {
 	var username = req.query.username;
@@ -30,6 +48,7 @@ router.get('/getUser', function (req, res, next) {
 
 	res.json({isValid: result});
 });
+
 
 function validate(username){
 	var list = ['byron', 'casper', 'vincent'];

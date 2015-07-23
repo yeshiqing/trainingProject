@@ -15,7 +15,7 @@ router.post('/',function(req,res,next){
 	var username = req.body.username;
 	var password = req.body.password;
 
-	var result = validate(username,password);
+	// var result = validate(username,password);
 	res.redirect('/successlogin');
 });
 
