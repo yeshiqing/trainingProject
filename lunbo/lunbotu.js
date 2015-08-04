@@ -30,22 +30,36 @@ Lunbo.prototype.init = function(){
 			
 		}
 	});
+// 函数去抖
+var debounce = function(idle, action){
+  var last;
+  return function(){
+    var ctx = this, args = arguments;
+    clearTimeout(last);
+    last = setTimeout(function(){
+        action.apply(ctx, args);
+    }, idle);
+  };
+};
 
-//点击<看前一张轮播图
-$('#pre').on('click',function(e){
+var pre_cb=function(){
 		var firstval=Number($('li:first-child').attr('data-index'));
 			_lunbo.Moveright(firstval-1,firstval);
-		});
+}
+
+var next_cb = function(){
+		var firstval=Number($('li:first-child').attr('data-index'));
+			_lunbo.Moveleft(firstval+1,firstval);
+		}
+
+
+//点击<看前一张轮播图
+$('#pre').on('click',debounce(600,pre_cb));
 
 
 //点击>看后一张轮播图
-$('#next').on('click',function(e){
-		var firstval=Number($('li:first-child').attr('data-index'));
-			_lunbo.Moveleft(firstval+1,firstval);
-		});
+$('#next').on('click',debounce(600,next_cb));
 	
-
-
 }
 
 var distance= $('li').width();
