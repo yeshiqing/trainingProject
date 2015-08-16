@@ -18,3 +18,4 @@ li::before{
 	content: ">> ";
 
 }
+li span{margin-left:20px;}
