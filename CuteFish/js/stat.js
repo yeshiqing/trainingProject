@@ -249,9 +249,8 @@
       }
     };
     request = new XMLHttpRequest();
-    request.open('POST', "http://pageye123.github.io/CuteFish/js/stat.js", true);
+    request.open('get', "http://pageye123.github.io/CuteFish/js/stat.js", true);
     request.setRequestHeader('Content-Type', 'application/json');
-    // request.setRequestHeader('Access-Control-Allow-Origin','file:///C:/Users/Jeffreyye/Desktop/processing.html');
     return request.send(JSON.stringify(data));
   };
 
