@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>点击按钮让每个div内容改变</title>
+</head>
+<body>
+	<section id="divContainer">
+		<input type="button" onclick="test(1)" value="传统方法遍历类数组">
+		<input type="button" onclick="test(2)" value="类数组转数组之后再遍历(Array.prototype.slice.call(arrayLike))">
+		<input type="button" onclick="test(3)" value="类数组转数组之后再遍历([].slice.call(arrayLike)">
+		<input type="text" id="timeInput" placeholder="执行时间">
+		<h1 style="text-align: center;">100000个div</h1>
+	</section>
+	<script type="text/javascript">
+		var section= document.querySelector("#divContainer");
+		for(var i=0;i<100000;i++ ){
+			var div=document.createElement("div");
+			div.style.textAlign="center";
+			div.innerHTML=i;
+			section.appendChild(div);
+		}
+		function test(n){
+			var now= new Date().getTime();
+			var divs=document.querySelectorAll("div");
+			var timeInput=document.querySelector("#timeInput");
+			switch(n){
+				case 1:
+					for(var g=0,l=divs.length;g<l;g++){
+						divs[g].innerHTML="111";
+					}
+					break;
+				case 2:
+					Array.prototype.slice.call(divs).forEach(function(e,i){
+						e.innerHTML="222";
+					})
+					break;
+				case 3:
+					[].slice.call(divs).forEach(function(e,i){
+						e.innerHTML="333";
+					})
+					break;
+
+			}
+			var duration=new Date().getTime()-now;
+			timeInput.value=duration;
+		}
+	</script>
+</body>
+</html>
