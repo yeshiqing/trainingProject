@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>弹出一个子窗口会阻塞父窗口的线程为什么？</title>
+	<style type="text/css">
+	body{
+		padding: 0;
+		margin-left: 20px;
+	}
+		.progress{
+
+			width:0%;
+			height:100%;
+			background:green;
+			/*transition: 1s width;
+			-webkit-transition: 1s width;*/
+		}
+		.container{
+			border:1px solid black;
+			width:300px;
+			height:20px;
+		}
+		.title{
+			top:30px;
+			left:21px;
+			display:inline-block;
+			background:yellow;
+			position: absolute;
+			border-left:  1px solid black;
+		}
+		input{
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="progress"></div>
+		<div class="title">0</div>
+	</div>
+	<input type="button" value="open a new window" onclick="openNew()">
+	<!-- <a href="page.html" target="_blank">Welcome</a> -->
+
+
+	<script type="text/javascript">
+	var i=0;
+	var progress=document.querySelector(".progress");
+	var title=document.querySelector(".title");
+	var interval=setInterval(function(){
+		// 进度条回调不适合加transition了
+		// console.log(i)//打开新窗口的时候，这个被阻塞住了
+		i++;
+		progress.style.width=i+"%";
+		title.innerHTML=i;
+		title.style.left =(21+i*300/100) +"px";
+		if(i===100){
+			clearInterval(interval);
+		}
+	},60);
+	function openNew(){
+			window.open("page.html", "newwindow","height=300, width=400, top=0,left=0,toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no,status=no") 
+	}
+	</script>
+</body>
+</html>
