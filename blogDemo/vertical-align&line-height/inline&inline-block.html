@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>同样的元素，同样的样式，inline-block和inline表现出的高度却是不一样的</title>
+	<style type="text/css">
+		.container{
+			height:100px;
+			background:pink;
+		}
+		.fsize80{
+			font-size:80px;
+		}
+		.inlineB{
+			display: inline-block;
+		}
+		.pink{
+			background:pink;
+		}
+		.blue{
+			background: blue;
+		}
+		button{
+			margin-top:20px;
+			font-size:20px;
+		}
+		.disnone{
+			display:none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container pink fsize80" >
+		<span class="blue">观察我的变化</span>
+	</div>
+	<div class="btnContainer inlineB toInlineB">
+		<button >变身成inline-block元素</button>
+	</div>
+	<div class="btnContainer2 inlineB disnone">
+		<button >为什么高度会不一样呢？</button>
+	</div>
+	<script type="text/javascript">
+		var _const={
+			btn_toInline:"变身成inline元素",
+			btn_toInlineB:"变身成inline-block元素"
+		};
+
+		var button=document.querySelector("button");
+		var span=document.querySelector("span");
+		var h=window.getComputedStyle(span).lineHeight;
+		var btnContainer=document.querySelector(".btnContainer");
+		var btnContainer2=document.querySelector(".btnContainer2");
+		// var _i=0;
+		button.onclick=function(){
+			span.className="blue";
+			if(btnContainer.className.indexOf("toInlineB")>-1){
+				button.innerHTML=_const.btn_toInline;
+				span.classList.add("inlineB");
+			}else{
+				// _i++;
+				span.classList.add("inline");
+				button.innerHTML=_const.btn_toInlineB;
+				// if(_i===1){
+				// 	setTimeout(function(){
+				// 		btnContainer2.classList.remove("disnone");
+				// 	},1100)
+				// }
+			}
+			btnContainer.classList.toggle("toInlineB");
+		}
+
+		btnContainer2.onclick=function(){
+			span.innerHTML="观察我的变化_`~'";
+		}
+	</script>	
+</body>
+</html>
