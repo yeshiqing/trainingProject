@@ -1,6 +1,5 @@
 var numBands = 512;
 function preload(){
-    message_anima();
    
 }
 function setup() {
