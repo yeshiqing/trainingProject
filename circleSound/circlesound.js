@@ -9,6 +9,7 @@ function setup() {
     thisCanvas.position(0, 0);
     // colorMode(HSB, 360, 100, 100, 100);
     // call p5 sound fft function for the number of waves to be analyzed
+    alert(new p5.FFT(0.9,numBands))
     fft = new p5.FFT(0.9, numBands); //此值大小只允许在0-1；
 alert("fft")
     // call p5 sound library function to get the amplitude of our song
@@ -28,7 +29,6 @@ alert("fft")
 }
 
 function draw() {
-    alert("draw")
     freqValues = fft.analyze();
     waveform = fft.waveform(512);
 
