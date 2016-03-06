@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>处理大数据量加载问题</title>
+	<style type="text/css">
+		body,html{
+			margin:0;
+			padding:0;
+			height:100%;
+			overflow:hidden;
+		}
+		div{
+			height:100%;
+			width:100%;
+			background:black url(loading.gif) center center no-repeat;
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+	<script type="text/javascript">
+		var last=new Date().getTime();
+		while((new Date().getTime()-last)<10000){
+			//模拟一个10秒的数据加载过程，疑问就在于gif图片在这个过程中不动了。
+		}
+	</script>
+</body>
+</html>
