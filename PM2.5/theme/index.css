@@ -47,14 +47,13 @@ div {
   text-align: center;
   left: 0;
   right: 0
-  /**left:50%;transform:translate(-50%,0);-webkit-transform:translate(-50%,0);-ms-transform:translate(-50%,0);**/
 }
 .full.of .effectBtnWrap {
   position: absolute;
   right: 60px;
   top: 25%;
   z-index: 10;
-  width: 130px;
+  width: 145px;
   height: 378px;
 }
 .full.of .effectBtnWrap ul {
@@ -121,12 +120,19 @@ div {
   text-align: center;
   color: white;
   padding-top: 2%;
-  margin: 2% 0 0.1%;
   height: 56px;
+  margin:0;
+  z-index:2;
   -webkit-user-select:none;
      -moz-user-select:none;
       -ms-user-select:none;
           user-select:none;
+}
+.full.of .global_dist{
+   position:absolute;
+  left:50%;
+  -webkit-transform:translate(-50%,0);
+          transform:translate(-50%,0);
 }
 .full.of .pWrap {
   text-align: center;
@@ -203,11 +209,7 @@ div {
   width: 70%;
   height: 168px;
   margin-top: 30px;
-}
-.full.of .main .mainWrap .textWrap .findMore {
-  padding-top: 20px;
-  font-size: 30px;
-  color: white;
+  color:white;
 }
 .full.of .main .mainWrap .textWrap p {
   font-size: 20px;
@@ -265,4 +267,77 @@ div {
 .person_photo.ysq{
   background:url(images/author/ysq.png) center center no-repeat;
   background-size:100% 100%;
+}
+.person_photo.bk{
+  background-size:100% 100%;
+}
+.person_photo.jzy{
+  background:url(images/author/jzy.jpg) center center no-repeat;
+  background-size:100% 100%;
+}
+.person_photo.lc{
+  background:url(images/author/lc.jpg) center center no-repeat;
+  background-size:100% 100%;
+}
+#global_Container{
+  height:90% !important;
+  position:absolute;
+  bottom:0;
+}
+/*css模块*/
+.addTransition{
+  transiton:0.6s all;
+  -webkit-transition:0.6s all;
+}
+.zIndex2{
+  position:absolute;
+  z-index: 2;
+}
+.demonstration_global{
+  left:20px;
+  bottom:20px;
+  color:white;
+}
+/*各个分页*/
+.mainWrap.china_distibution{
+  background:#3d0070;
+}
+/*svg专属*/
+#tooltip_d3map {   
+    position: absolute;           
+    text-align: center;
+    padding: 20px;             
+    margin: 10px;
+    font: 12px sans-serif;        
+    background: lightsteelblue;   
+    border: 1px;      
+    border-radius: 2px;           
+    pointer-events: none;         
+}
+#tooltip_d3map h4{
+  margin:0;
+  font-size:14px;
+}
+#tooltip_d3map{
+  background:rgba(0,0,0,0.9);
+  border:1px solid grey;
+  border-radius:5px;
+  font-size:12px;
+  width:auto;
+  padding:4px;
+  color:white;
+  opacity:0;
+}
+#tooltip_d3map table{
+  table-layout:fixed;
+}
+#tooltip_d3map tr td{
+  padding:0;
+  margin:0;
+}
+#tooltip_d3map tr td:nth-child(1){
+  width:50px;
+}
+#tooltip_d3map tr td:nth-child(2){
+  text-align:center;
 }

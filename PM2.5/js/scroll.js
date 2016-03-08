@@ -1,3 +1,26 @@
+function myBrowser() {
+		var userAgent = navigator.userAgent;
+		if (userAgent.indexOf("Opera") > -1) {
+			return "Opera"
+		}
+		// 判断是否Opera浏览器
+		if (userAgent.indexOf("Firefox") > -1) {
+			return "FF";
+		}
+		// 判断是否Firefox浏览器
+		if (userAgent.indexOf("Chrome") > -1) {
+			return "Chrome";
+		}
+		if (userAgent.indexOf("Safari") > -1) {
+			return "Safari";
+		}
+		// 判断是否Safari浏览器
+		if (!!window.ActiveXObject || "ActiveXObject" in window) {
+			return "IE";
+		};
+		// 判断是否IE浏览器}
+		return "FF"
+	}
 (function() {
 	var systemIndex = {
 			/**
@@ -8,7 +31,6 @@
 				this.css.init();
 				this.circleClick.init();
 				this.scroll.init();
-				this.link.init();
 
 				var browser = myBrowser();
 				if (browser != "IE") {} else {
@@ -121,18 +143,26 @@
 						document.body.removeEventListener("mousewheel", func, false);
 					}
 				}
-				var topOrigin = parseInt(document.getElementById("mainContainer").style.top);
-				var step = ((-_i - d) * 100 - topOrigin) / 8;
-				var i = 0;
-				var interval = setInterval(function() {
-					i++;
-					document.getElementById("mainContainer").style.top = topOrigin + "%";
-					topOrigin = topOrigin + step;
-					if (i === 9) {
-						systemIndex.intervalAllow = true;
-						clearInterval(interval);
-					}
-				}, 20)
+				var mainContainer=document.getElementById("mainContainer");
+				var topOrigin;
+				if(myBrowser()==="IE"){
+					topOrigin = parseInt(mainContainer.style.top);
+					var step = ((-_i - d) * 100 - topOrigin) / 10;
+					var i = 0;
+					var interval = setInterval(function() {
+						i++;
+						document.getElementById("mainContainer").style.top = topOrigin + "%";
+						topOrigin = topOrigin + step;
+						if (i === 11) {
+							systemIndex.intervalAllow = true;
+							clearInterval(interval);
+						}
+					},30)
+				}else{
+					addClass(mainContainer,"addTransition");
+					topOrigin = parseInt(mainContainer.style.top);
+					mainContainer.style.top=(-_i - d) * 100+"%";
+				}
 				if (func) {
 					setTimeout(function() {
 						if (document.attachEvent) {
@@ -217,6 +247,10 @@
 								if (myBrowser() === "IE") {
 									orientation = e.detail || -(e.wheelDelta);
 								}
+								if(myBrowser()==="Safari"){
+									//safari的鼠标滚轮事件存在的keyCode;
+									orientation=-e.wheelDelta;
+								}
 								break;
 							default:
 								return;
@@ -233,7 +267,7 @@
 						if (cName1.indexOf("show") > -1) {
 							return;
 						}
-					} else if (orientation < 0) {
+					} else if (orientation <= 0) {
 						// 往上滑
 						d = -1;
 						if (cName2.indexOf("show") > -1) {
@@ -267,29 +301,9 @@
 					addClass(circle, "show");
 
 				}
-			},
-			link: {
-				init: function() {
-					this.contactus();
-				},
-				contactus: function() {
-				}
 			}
 		}
 		// 抽象出的扩展方法
-	function $(className) {
-		if (typeof document.querySelectorAll === "function") {
-			var objs = document.querySelectorAll(className);
-			var obj = document.querySelector(className);
-			if (objs.length === 1) {
-				return obj;
-			} else {
-				return objs;
-			}
-		} else {
-
-		}
-	};
 
 	function addClass(item, cName) {
 		if (item.className.indexOf(cName) > -1) {
@@ -304,31 +318,6 @@
 		}
 		item.className = item.className.replace(cName, '');
 	}
-
-	function myBrowser() {
-		var userAgent = navigator.userAgent;
-		if (userAgent.indexOf("Opera") > -1) {
-			return "Opera"
-		}
-		// 判断是否Opera浏览器
-		if (userAgent.indexOf("Firefox") > -1) {
-			return "FF";
-		}
-		// 判断是否Firefox浏览器
-		if (userAgent.indexOf("Chrome") > -1) {
-			return "Chrome";
-		}
-		if (userAgent.indexOf("Safari") > -1) {
-			return "Safari";
-		}
-		// 判断是否Safari浏览器
-		if (!!window.ActiveXObject || "ActiveXObject" in window) {
-			return "IE";
-		};
-		// 判断是否IE浏览器}
-		return "FF"
-	}
-	//___________________________________
 
 	systemIndex.init();
 }())

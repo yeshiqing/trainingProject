@@ -143,9 +143,6 @@ DAT.Globe = function(container, opts) {
 
     renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.domElement.setAttribute("id","stars");
-    // var _canvas=document.createElement("canvas");
-    // renderer.domElement.getContext=_canvas.getContext;
-    // renderer.domElement=document.getElementById("stars");
     renderer.setSize(w, h);
     renderer.domElement.style.position = 'absolute';
 
@@ -153,7 +150,7 @@ DAT.Globe = function(container, opts) {
 
     container.addEventListener('mousedown', onMouseDown, false);
 
-    container.addEventListener('mousewheel', onMouseWheel, false);
+    // container.addEventListener('mousewheel', onMouseWheel, false);
 
     document.addEventListener('keydown', onDocumentKeyDown, false);
 
