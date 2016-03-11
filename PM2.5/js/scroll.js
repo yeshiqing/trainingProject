@@ -1,26 +1,3 @@
-function myBrowser() {
-		var userAgent = navigator.userAgent;
-		if (userAgent.indexOf("Opera") > -1) {
-			return "Opera"
-		}
-		// 判断是否Opera浏览器
-		if (userAgent.indexOf("Firefox") > -1) {
-			return "FF";
-		}
-		// 判断是否Firefox浏览器
-		if (userAgent.indexOf("Chrome") > -1) {
-			return "Chrome";
-		}
-		if (userAgent.indexOf("Safari") > -1) {
-			return "Safari";
-		}
-		// 判断是否Safari浏览器
-		if (!!window.ActiveXObject || "ActiveXObject" in window) {
-			return "IE";
-		};
-		// 判断是否IE浏览器}
-		return "FF"
-	}
 (function() {
 	var systemIndex = {
 			/**
@@ -189,6 +166,17 @@ function myBrowser() {
 					var _flag = false;
 					browser = myBrowser();
 					var _this = this;
+					//touch.js
+					touch.on('document.body', 'swipetop', function(ev){
+						var i = systemIndex.indexScreen();
+						systemIndex.iframeMove(1, null, i);
+					    alert(ev.type);
+					});
+					touch.on('document.body', 'swipebottom', function(ev){
+						var i = systemIndex.indexScreen();
+						systemIndex.iframeMove(-1, null, i);
+					    alert(ev.type);
+					});
 					switch (browser) {
 						case "FF":
 							document.body.addEventListener("DOMMouseScroll", function go(e) {

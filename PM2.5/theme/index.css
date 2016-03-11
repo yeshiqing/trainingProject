@@ -206,7 +206,7 @@ div {
 }
 .full.of .main .mainWrap .textWrap {
   display: inline-block;
-  width: 70%;
+  width: 100%;
   height: 168px;
   margin-top: 30px;
   color:white;
@@ -269,6 +269,7 @@ div {
   background-size:100% 100%;
 }
 .person_photo.bk{
+  background:url(images/author/bk.jpg) center center no-repeat;
   background-size:100% 100%;
 }
 .person_photo.jzy{
@@ -298,10 +299,43 @@ div {
   bottom:20px;
   color:white;
 }
+@keyframes bgposition{
+  0%{background-position:0 0;}
+  100%{background-position: 100% 0}
+  
+}
+@-webkit-keyframes bgposition{
+  0%{background-position:0 0;}
+  100%{background-position: 100% 0}
+  
+}
+@-moz-keyframes bgposition{
+  0%{background-position:0 0;}
+  100%{background-position: 100% 0}
+  
+}
+@-o-keyframes bgposition{
+  0%{background-position:0 0;}
+  100%{background-position: 100% 0}
+  
+}
+-ms-keyframes bgposition{
+  0%{background-position:0 0;}
+  100%{background-position: 100% 0}
+  
+}
 /*各个分页*/
 .mainWrap.china_distibution{
-  background:#3d0070;
+  background:url("images/cloudy.png") center center repeat;
+  animation: bgposition 100s infinite linear;
+  -webkit-animation: bgposition 100s infinite linear;
+  -moz-animation: bgposition 100s infinite linear;
+  -ms-animation: bgposition 100s infinite linear;
+  -o-animation: bgposition 100s infinite linear;
 }
+.state:hover{
+    fill-opacity:0.9;
+  }
 /*svg专属*/
 #tooltip_d3map {   
     position: absolute;           
@@ -340,4 +374,7 @@ div {
 }
 #tooltip_d3map tr td:nth-child(2){
   text-align:center;
+}
+.d3MapWrap{
+  text-align: left;
 }

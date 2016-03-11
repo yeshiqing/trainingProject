@@ -1,6 +1,9 @@
 (function gloabal_distribution(){
     if(myBrowser()==="Safari"||myBrowser()==="IE"){
-        alert("您的浏览器不能很好地支持此页面，请换用firefox或者chrome");
+        setTimeout(function(){
+        	// alert("您的浏览器不支持WebGL技术,部分效果不体验不佳,请换用firefox或者chrome,");
+        	//准备截张图片
+        },2000)
         return;
     }
     var globe = DAT.Globe(document.getElementById('global_Container'), {
@@ -41,14 +44,14 @@
 				"<tr><td>High</td><td>"+(d.high)+"</td></tr>"+
 				"</table>";
 		}
-		var sampleData ={};	/* Sample random data. */	
+		var sampleData ={};	/* Sample data */	
 		['JXI', 'LIA', 'TIB', 'NMG', 'SHH', 'CHQ', 'XIN', 'SHD', 'HEN', 'GUD', 'GUI', 'BEJ', 'MAC', 'TAJ', 'HLJ', 'HEB', 'ZHJ', 'ANH', 'GXI', 'HAI', 'JIL', 'SHX', 'HUN', 'YUN', 'FUJ', 'HUB', 'SHA', 'HKG', 'QIH', 'GAN', 'JSU', 'SCH', 'NXA', 'TAI']
 			.forEach(function(d){ 
 				var low=Math.round(100*Math.random()), 
 					mid=Math.round(100*Math.random()), 
 					high=Math.round(100*Math.random());
 				sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]), 
-						avg:Math.round((low+mid+high)/3), color:d3.interpolate("#22da5a", "#df263b")(low/100)}; 
+						avg:Math.round((low+mid+high)/3), color:d3.interpolate("#007eff", "#333333")(low/100)}; 
 			});
 		d3.json("./data/chinaMap.json",function(data){
 			var uStatePaths=data;
@@ -57,6 +60,7 @@
 		            .attr("id","d3MapSVG")
 		            .attr("width",600) 
 		            .attr("height",470)
+		            .attr("text-align","left");
 	        var uStates = {};
 	 	    uStates.draw = function(id, data, toolTip) {
 				function mouseOver(d) {
@@ -71,14 +75,32 @@
 					d3.select("#tooltip_d3map").transition().duration(500).style("opacity", 0);
 				}
 
+				function click(d){
+					var id=d.id;
+					var _path=d3.select("path#"+id);
+					_path.style("fill",function(d){
+						if(_path.attr("active")==="true"){
+							_path.attr("active","false")
+							return data[d.id].color;
+						}else{
+							_path.attr("active","true")
+							return "yellow"
+						}
+					});
+				}
+
 				d3.select(id).selectAll(".state")
-					.data(uStatePaths).enter().append("path").attr("class", "state").attr("d", function(d) {
+					.data(uStatePaths).enter().append("path").attr("class", "state").attr("id",function(d){
+						return d.id;
+					}).attr("d", function(d) {
 						return d.d;
 					})
 					.style("fill", function(d) {
 						return data[d.id].color;
-					})
-					.on("mouseover", mouseOver).on("mouseout", mouseOut);
+					}).style("cursor","pointer")
+					.on("mouseover", mouseOver).on("mouseout", mouseOut)
+					.on("click",click);
+
 			}
 			/* draw states on id #d3MapSVG */	
 			uStates.draw("#d3MapSVG", sampleData, tooltipHtml);

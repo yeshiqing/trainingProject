@@ -142,7 +142,7 @@ DAT.Globe = function(container, opts) {
     point = new THREE.Mesh(geometry);
 
     renderer = new THREE.WebGLRenderer({antialias: true});
-    renderer.domElement.setAttribute("id","stars");
+    renderer.domElement.setAttribute("id","globeWebGL");
     renderer.setSize(w, h);
     renderer.domElement.style.position = 'absolute';
 
