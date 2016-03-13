@@ -167,12 +167,12 @@
 					browser = myBrowser();
 					var _this = this;
 					//touch.js
-					touch.on('document.body', 'swipetop', function(ev){
+					touch.on(document.body, 'swipeup', function(ev){
 						var i = systemIndex.indexScreen();
 						systemIndex.iframeMove(1, null, i);
 					    alert(ev.type);
 					});
-					touch.on('document.body', 'swipebottom', function(ev){
+					touch.on(document.body, 'swipedown', function(ev){
 						var i = systemIndex.indexScreen();
 						systemIndex.iframeMove(-1, null, i);
 					    alert(ev.type);

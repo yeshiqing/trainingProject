@@ -37,9 +37,16 @@
 						<h2>中国分布情况</h2>
 						<div class="ChinaContainer">
 							<div id="d3MapWrap" class="d3MapWrap">
+								<div class="time-select">
+									<label for="d3map-time-select">
+										<p>2015年</p>
+										<p class=""><span class="d3map-time-month">1</span>月</p>
+									</label>
+									<input id="d3map-time-select" type="range" min="1" max="12" step=1 value="1" onchange="IndexPM.timeRangeChange(event)">
+								</div>
 								<div id="tooltip_d3map"></div><!-- div to hold tooltip. -->
 							</div>
-							<div class="rightContainer">
+							<div class="rightContainer rf">
 								<div id="airQualityLevelWrap" class="airQualityLevelWrap">
 									
 								</div>
@@ -219,6 +226,5 @@
 	<script type="text/javascript" src="js/scroll.js"></script>
 	<script type="text/javascript" src="js/d3.js"></script>
 	<script type="text/javascript" src="index.js"></script>
-	
 </body>
 </html>
