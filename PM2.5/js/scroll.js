@@ -166,17 +166,34 @@
 					var _flag = false;
 					browser = myBrowser();
 					var _this = this;
+					function IsPC() {
+					    var userAgentInfo = navigator.userAgent;
+					    var Agents = ["Android", "iPhone",
+					                "SymbianOS", "Windows Phone",
+					                "iPad", "iPod"];
+					    var flag = true;
+					    for (var v = 0; v < Agents.length; v++) {
+					        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+					            flag = false;
+					            break;
+					        }
+					    }
+					    return flag;
+					}
 					//touch.js
-					touch.on(document.body, 'swipeup', function(ev){
-						var i = systemIndex.indexScreen();
-						systemIndex.iframeMove(1, null, i);
-					    alert(ev.type);
-					});
-					touch.on(document.body, 'swipedown', function(ev){
-						var i = systemIndex.indexScreen();
-						systemIndex.iframeMove(-1, null, i);
-					    alert(ev.type);
-					});
+					(!IsPC())&&((function(){
+							touch.on(document.body, 'swipeup', function(ev){
+								var i = systemIndex.indexScreen();
+								systemIndex.iframeMove(1, null, i);
+								_this.circle_move(1);
+							});
+							touch.on(document.body, 'swipedown', function(ev){
+								var i = systemIndex.indexScreen();
+								systemIndex.iframeMove(-1, null, i);
+								_this.circle_move(-1);
+							});
+						})()
+					);
 					switch (browser) {
 						case "FF":
 							document.body.addEventListener("DOMMouseScroll", function go(e) {

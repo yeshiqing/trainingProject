@@ -17,27 +17,20 @@
             ][label]);
         }
     });
+	d3.json('./data/global.json',function(data){
+	    // globe.addData(data, {
+	    //     format: 'legend'
+	    // });
+	    // globe.createPoints();
+	    // globe.animate();
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', './data/global.json', true);
-    xhr.onreadystatechange = function(e) {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                var data = JSON.parse(xhr.responseText);
-                globe.addData(data, {
-                    format: 'legend'
-                });
-                globe.createPoints();
-                globe.animate();
-            }
-        }
-    };
-    xhr.send(null);
+	})
 })();
 
 (function d3_render(){
 	var d3Render={
-			d3Map:function (){
+			uStatePaths:null,
+			d3Map:function (callback){
 				function tooltipHtml(n, d){	/* function to create html content string in tooltip div. */
 					return "<h4>"+n+"</h4><table>"+
 						"<tr><td>Low</td><td>"+(d.low)+"</td></tr>"+
@@ -55,6 +48,7 @@
 								avg:Math.round((low+mid+high)/3), color:d3.interpolate("#007eff", "#333333")(low/100)}; 
 					});
 				d3.json("./data/chinaMap.json",function(data){
+					d3Render.uStatePaths=data;
 					var uStatePaths=data;
 				    var svg = d3.select("#d3MapWrap") 
 				            .append("svg") 
@@ -78,22 +72,22 @@
 
 						function click(d){
 							var id=d.id;
+							var mode="total";
 							var _path=d3.select("path#"+id);
 							_path.style("fill",function(d){
 								if(_path.attr("active")==="true"){
 									_path.attr("active","false")
 									return data[d.id].color;
 								}else{
-									_path.attr("active","true")
+									mode="several";
+									_path.attr("active","true");
 									return "yellow"
 								}
 							});
-							console.log(d);
-							var timeDOM=document.querySelector("#d3map-time-select");
-							var month=timeDOM.value;
-							// d3Render.barchartUpdate(d.aQLevel[(month-1)])
-						}
 
+							d3Render.getChartData_render();
+						}							
+						
 						d3.select(id).selectAll(".state")
 							.data(uStatePaths).enter().append("path").attr("class", "state").attr("id",function(d){
 								return d.id;
@@ -109,21 +103,93 @@
 					}
 					/* draw states on id #d3MapSVG */	
 					uStates.draw("#d3MapSVG", sampleData, tooltipHtml);
+					if(callback){
+						callback();
+					}
 				})
 			},
+			//得到图表数据并渲染
+			getChartData_render:function(){
+				var total=0;
+				var barChart_Data={
+					"good": 0,
+					"moderate": 0,
+					"unhForSens": 0,
+					"unh": 0,
+					"veryUnh": 0,
+					"hazard": 0
+				}
+				var pieChart_Data={
+					"co": 0,
+					"no2": 0,
+					"pm10": 0,
+					"pm25": 0,
+					"so2": 0,
+					"o3": 0
+				}
+				var d=getActivePath();
+				getChartData(d);
+				d3Render.barChartUpdate(barChart_Data,total);
+				d3Render.pieChartUpdate(pieChart_Data);
+				function getChartData(d){
+					var month=getMonth();
+					for(var i=0,l=d.length;i<l;i++){
+						var _d=d[i];
+						if(_d.monthCond&&_d.monthCond.length>0){
+							_barChart_Data=_d.monthCond[month].aqiCondition;
+							_pieChart_Data=_d.monthCond[month].dPollutant;
+							for(var b in barChart_Data){
+								total+=_barChart_Data[b];
+								barChart_Data[b] +=_barChart_Data[b];
+							}
+							for(var p in pieChart_Data){
+								pieChart_Data[p]+= _pieChart_Data[p];
+							}
+						}
+					}
+				}
+				function getActivePath(){
+					var activePath=[];
+					var inactivePath=[];
+					var data=d3Render.uStatePaths;
+					var _path;
+					for(var i=0,l=data.length;i<l;i++){
+						var _pathId="path#"+data[i].id;
+						_path=d3.select(_pathId);
+						if(_path.attr("active")==="true"){
+							activePath.push(_path[0][0]["__data__"]);
+						}else{
+							inactivePath.push(_path[0][0]["__data__"]);
+						}
+					}
+					return (activePath.length===0?inactivePath:activePath);
+				}
+				function getMonth(){
+					var timeDOM=document.querySelector("#d3map-time-select");
+					var month=0;
+					//??
+					return month;
+				}
+			},
+			
+
 			pieChartUpdate:function(data){
-				// var data = [];
+			    var pieData;
+				if(!data){
+					var numberOfDataPoint = 6,
+				    pieData = d3.range(numberOfDataPoint).map(function (i) {
+			       	 	return {id: i, value: 0,name:"数据暂无"};
+			  	 	});
+				}else{
+					var propNames=Object.getOwnPropertyNames(data);
+					var numberOfDataPoint=propNames.length;
+				    pieData = d3.range(numberOfDataPoint).map(function (i) {
+			 	       return {id: i, value:data[propNames[i]],name:propNames[i]}
+				    });
+				}
+			    pieChart.data(pieData);
 
-			 //    data = d3.range(numberOfDataPoint).map(function (i) {
-			 //        return {id: i, value: randomData()};
-			 //    });
-
-			    var chart = d3Render.pieChart()
-			            .radius(130)
-			            .innerRadius(50)
-			            .data(data);
-
-			    chart.render();
+			    pieChart.render();
 			},
 			pieChart:function(){
 			        var _chart = {};
@@ -227,7 +293,10 @@
 			                    .attr("dy", ".35em")
 			                    .attr("text-anchor", "middle")
 			                    .text(function (d) {
-			                        return d.data.id;
+			                    	if(d.data.value>0){
+			                    		return d.data.name;
+			                    	}
+			                        return "";
 			                    });
 			        }
 
@@ -269,17 +338,27 @@
 
 			        return _chart;
 			},
-			barchartUpdate:function(data){
+			barChartUpdate:function(data,total){
 				// [{x:0,y:5},{x:2,y:6},{x:4,y:9},{x:6,y:10},{x:8,y:0},{x:10,y:0}]
-			    
-				var chart = d3Render.barChart()
-				        .x(d3.scale.linear().domain([0, 12]))
-				        .y(d3.scale.linear().domain([0, 10]));
+				var barChart_Data=[];
+				if(!data){
+					var numberOfDataPoint = 6;
+					barChart_Data = d3.range(numberOfDataPoint).map(function (i) {
+					    return {x: 2*i, y: 0};
+					});
+				}else{
+				    var _i=0;
+				    for(var i in data){
+				    	barChart_Data.push({
+				    		x:_i,
+				    		y:data[i]/total*100
+				    	})
+				    	_i=_i+2;
+				    }
+				}
+				barChart.setSeries(barChart_Data);
 
-
-				chart.setSeries(data);
-
-				chart.render();
+				barChart.render();
 			},
 			barChart:function(){
 				    var _chart = {};
@@ -465,41 +544,13 @@
 		}
 	
 	
-	d3Render.d3Map();
+		d3Render.d3Map(renderChart);
+		var barChart=d3Render.barChart().x(d3.scale.linear().domain([0, 12])).y(d3.scale.linear().domain([0, 100]));
+		var pieChart=d3Render.pieChart().radius(130).innerRadius(50);
 
-
-   				function randomData() {
-			        return Math.random() * 9 + 1;
-			    }
-
-			    var numberOfDataPoint = 5,
-			            data = [];
-
-			    data = d3.range(numberOfDataPoint).map(function (i) {
-			        return {id: i, value: randomData()};
-			    });
-
-			    var chart = d3Render.pieChart()
-			            .radius(130)
-			            .innerRadius(50)
-			            .data(data);
-
-			    chart.render();
-
-				var numberOfDataPoint = 6,
-				    data = [];
-
-				data = d3.range(numberOfDataPoint).map(function (i) {
-				    return {x: 2*i, y: 6};
-				});
-				var chart = d3Render.barChart()
-				        .x(d3.scale.linear().domain([0, 12]))
-				        .y(d3.scale.linear().domain([0, 10]));
-
-
-				chart.setSeries(data);
-
-				chart.render();
+	    function renderChart(){
+	    	d3Render.getChartData_render();
+	    }
 })();
 
 var IndexPM={

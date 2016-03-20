@@ -193,8 +193,8 @@
 		function myBrowser() {
 			var userAgent = navigator.userAgent;
 			if(/AppleWebKit.*Mobile/i.test(userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(userAgent))){
+				return "mobile"
 				// alert("我们暂时并不支持手机端")
-				alert("测试一下userAgent------------"+userAgent)
 			}
 			if (userAgent.indexOf("Opera") > -1) {
 				return "Opera"
