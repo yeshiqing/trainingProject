@@ -365,6 +365,29 @@ div {
 .rightContainer{
   margin-right:120px;
 }
+.defaultInfo{
+  background:rgba(235,244,185,0.2);
+  position:relative;
+  width:100%;
+  height:100%;
+  color:#646464;
+}
+#key_PollutantWrap{
+  height:260px;
+  width:100%;
+  text-align: center;
+}
+#key_PollutantWrap .defaultInfo{
+  border-radius:130px;
+}
+.defaultInfo text{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  -webkit-transform:translate(-50%,-50%);
+  font-size:1.2rem;
+}
 /*d3 svg专属*/
 #tooltip_d3map {   
     position: absolute;           

@@ -18,11 +18,11 @@
         }
     });
 	d3.json('./data/global.json',function(data){
-	    // globe.addData(data, {
-	    //     format: 'legend'
-	    // });
-	    // globe.createPoints();
-	    // globe.animate();
+	    globe.addData(data, {
+	        format: 'legend'
+	    });
+	    globe.createPoints();
+	    globe.animate();
 
 	})
 })();
@@ -110,7 +110,9 @@
 			},
 			//得到图表数据并渲染
 			getChartData_render:function(){
-				var total=0;
+				var total=1;
+				var pieFlag=false,
+					barFlag=false;
 				var barChart_Data={
 					"good": 0,
 					"moderate": 0,
@@ -120,22 +122,31 @@
 					"hazard": 0
 				}
 				var pieChart_Data={
-					"co": 0,
-					"no2": 0,
-					"pm10": 0,
-					"pm25": 0,
-					"so2": 0,
-					"o3": 0
+					"co": 1,
+					"no2": 1,
+					"pm10": 1,
+					"pm25": 1,
+					"so2": 1,
+					"o3": 1
 				}
 				var d=getActivePath();
 				getChartData(d);
 				d3Render.barChartUpdate(barChart_Data,total);
-				d3Render.pieChartUpdate(pieChart_Data);
+				if(pieFlag){
+					d3Render.pieChartUpdate(pieChart_Data);
+					$("#d3PieChart").css("display","inline-block");
+					$("#key_PollutantWrap .defaultInfo").hide();
+				}else{
+					$("#key_PollutantWrap .defaultInfo").show();
+					$("#d3PieChart").css("display","none");
+				}
+
 				function getChartData(d){
 					var month=getMonth();
 					for(var i=0,l=d.length;i<l;i++){
 						var _d=d[i];
 						if(_d.monthCond&&_d.monthCond.length>0){
+							barFlag=pieFlag=true;
 							_barChart_Data=_d.monthCond[month].aqiCondition;
 							_pieChart_Data=_d.monthCond[month].dPollutant;
 							for(var b in barChart_Data){
@@ -207,7 +218,8 @@
 			            if (!_svg) {
 			                _svg = d3.select("#key_PollutantWrap").append("svg")
 			                        .attr("height", _height)
-			                        .attr("width", _width);
+			                        .attr("width", _width)
+			                        .attr("id","d3PieChart");
 			            }
 
 			            renderBody(_svg);
@@ -265,7 +277,6 @@
 			                        if (!currentArc)
 			                            currentArc = {startAngle: 0, 
 			                                            endAngle: 0};
-
 			                        var interpolate = d3.interpolate(
 			                                            currentArc, d);
 			                                            
