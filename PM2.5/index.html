@@ -25,6 +25,21 @@
 				</div>
 			</div>
 			<div class="mainWrap js_globeWrap globeWrap page2">
+				<h2 class="hazeVideoTitle">生命不息,雾霾不再</h2>
+				<div id="hazeVideoWrap" class="hazeVideoWrap">
+				<video src="assets/haze.mp4" preload="auto" controls="controls" width="70%" height="auto"></video>
+				</div>
+			</div>
+			<div class="mainWrap">
+				<div class="Pabs">
+					<div class="textWrap">
+						<h2 class="h2Anima1">雾霾关键词</h2>
+					</div>
+				</div>
+				<div id="hazeKeyWordWrap" class="hazeKeyWordWrap">
+				</div>
+			</div>
+			<div class="mainWrap js_globeWrap globeWrap page2">
 				<h2 class="global_dist">全球分布情况</h2>
 				<div class="demonstration_global zIndex2"><b>*</b> 图中线条越长，表示此地PM2.5污染越严重</div>
 				<div id="global_Container">
@@ -37,16 +52,104 @@
 						<h2>中国分布情况</h2>
 						<div class="ChinaContainer">
 							<div id="d3MapWrap" class="d3MapWrap">
-								<div class="time-select">
-									<label for="d3map-time-select">
+								<div class="time-select" onclick="indexPM.timeRangeChange(event)">
+									<div class="dot selected" style="left:34px;"></div>
+									<span class="oneMonth" data-month="1">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">1</div>
+										</span>
+									</span>
+									<span class="oneMonth" data-month="2">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">2</div>
+										</span>
+									</span>
+									<span class="oneMonth" data-month="3">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">3</div>
+										</span>
+									</span>
+									<span class="oneMonth" data-month="4">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">4</div>
+										</span>
+									</span>
+									<span class="oneMonth" data-month="5">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">5</div>
+										</span>
+									</span>
+									<span class="oneMonth" data-month="6">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">6</div>
+										</span>
+									</span>
+									<span class="oneMonth" data-month="7">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">7</div>
+										</span>
+									</span>
+									<span class="oneMonth" data-month="8">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">8</div>
+										</span>
+									</span>
+									<span class="oneMonth" data-month="9">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">9</div>
+										</span>
+									</span>
+									<span class="oneMonth" data-month="10">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">10</div>
+										</span>
+									</span>
+									<span class="oneMonth" data-month="11">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">11</div>
+										</span>
+									</span>
+									<span class="oneMonth" data-month="12">
+										<span class="line">- - - -</span>
+										<span class="monthItem">
+											<div class="dot"></div>
+											<div class="month">12</div>
+										</span>
+									</span>
+									<span class="_oneMonth" style="pointer-events:none">
+										<span class="line">- - - -</span>
+									</span>
+									<!-- <label for="d3map-time-select">
 										<p>2015年</p>
 										<p class=""><span class="d3map-time-month">1</span>月</p>
 									</label>
-									<input id="d3map-time-select" type="range" min="1" max="12" step=1 value="1" onchange="IndexPM.timeRangeChange(event)">
+									<input id="d3map-time-select" type="range" min="1" max="12" step=1 value="1" onchange="indexPM.timeRangeChange(event)"> -->
 								</div>
 								<div id="tooltip_d3map"></div><!-- div to hold tooltip. -->
 							</div>
-							<div class="rightContainer rf">
+							<div class="rightContainer">
 								<div id="airQualityLevelWrap" class="airQualityLevelWrap">
 									
 								</div>
@@ -58,9 +161,6 @@
 					</div>
 				</div>
 				<div class="bgPic">
-					<div id="js_pic7-1" class="pic7"></div>
-					<div id="js_pic7-2" class="animaInit7-2 js_pic7-2"></div>
-					<div id="js_pic7-3" class="animaInit7-3 js_pic7-3"></div>
 				</div>
 			</div>
 			<div class="mainWrap">
@@ -72,36 +172,6 @@
 				</div>
 				<div class="bgPic ">
 					<div class="pic3"></div>
-				</div>
-			</div>
-			<div class="mainWrap">
-				<div class="Pabs">
-					<div class="textWrap">
-						<h2 class="h2Anima1">PM2.5与健康</h2>
-						<div class="pWrap"><p></p></div>
-					</div>
-				</div>
-				<div class="bgPic">
-					<div class=" pic4"></div>
-				</div>
-			</div>
-			<div class="mainWrap">
-				<div class="Pabs">
-					<div class="textWrap">
-						<h2>PM2.5大家谈</h2>
-						<div class="pWrap"><p></p></div>
-					</div>
-				</div>
-				<div class="bgPic">
-					<div class="pic5"></div>
-				</div>
-			</div>
-			<div class="mainWrap">
-				<div class="Pabs">
-					<div class="textWrap">
-						<h2>还城市一片清洁</h2>
-						<div class="pWrap"><p></p></div>
-					</div>
 				</div>
 			</div>
 			<div class="mainWrap">
@@ -159,6 +229,14 @@
 				</li>
 				
 				<li>
+					<span class="title">暖场</span>
+					<span class="circle"></span>
+				</li>
+				<li>
+					<span class="title">关键词</span>
+					<span class="circle "></span>
+				</li>
+				<li>
 					<span class="title">全球</span>
 					<span class="circle "></span>
 				</li>
@@ -168,18 +246,6 @@
 				</li>
 				<li>
 					<span class="title">北京</span>
-					<span class="circle "></span>
-				</li>
-				<li>
-					<span class="title">健康</span>
-					<span class="circle "></span>
-				</li>
-				<li>
-					<span class="title">人文关怀</span>
-					<span class="circle "></span>
-				</li>
-				<li>
-					<span class="title">结束语</span>
 					<span class="circle "></span>
 				</li>
 				<li class="js_contactLink">

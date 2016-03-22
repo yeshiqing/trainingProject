@@ -23,7 +23,6 @@
 	    });
 	    globe.createPoints();
 	    globe.animate();
-
 	})
 })();
 
@@ -38,16 +37,36 @@
 						"<tr><td>High</td><td>"+(d.high)+"</td></tr>"+
 						"</table>";
 				}
-				var sampleData ={};	/* Sample data */	
-				['JXI', 'LIA', 'TIB', 'NMG', 'SHH', 'CHQ', 'XIN', 'SHD', 'HEN', 'GUD', 'GUI', 'BEJ', 'MAC', 'TAJ', 'HLJ', 'HEB', 'ZHJ', 'ANH', 'GXI', 'HAI', 'JIL', 'SHX', 'HUN', 'YUN', 'FUJ', 'HUB', 'SHA', 'HKG', 'QIH', 'GAN', 'JSU', 'SCH', 'NXA', 'TAI']
-					.forEach(function(d){ 
-						var low=Math.round(100*Math.random()), 
-							mid=Math.round(100*Math.random()), 
-							high=Math.round(100*Math.random());
-						sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]), 
-								avg:Math.round((low+mid+high)/3), color:d3.interpolate("#007eff", "#333333")(low/100)}; 
-					});
 				d3.json("./data/chinaMap.json",function(data){
+					var sampleData ={};	/* Sample data */	
+					data.forEach(function(d,i){
+						var _aqiValue;
+						var low,high,average;
+						if(d.monthCond){
+							_aqiValue=d.monthCond._aqiValue;
+							if(_aqiValue){
+								 low=_aqiValue.low;
+								 high=_aqiValue.high;
+								 average=_aqiValue.average;
+							}
+						}
+						(!low)&&(low=0);
+						(!high)&&(high="未知");
+						(!average)&&(average="未知");
+
+						var average=10;
+						//??
+						sampleData[d.id]={low:low, high:high, 
+						avg:average, color:d3.interpolate("#007eff", "#333333")(average/100)}; 
+					})
+					// ['JXI', 'LIA', 'TIB', 'NMG', 'SHH', 'CHQ', 'XIN', 'SHD', 'HEN', 'GUD', 'GUI', 'BEJ', 'MAC', 'TAJ', 'HLJ', 'HEB', 'ZHJ', 'ANH', 'GXI', 'HAI', 'JIL', 'SHX', 'HUN', 'YUN', 'FUJ', 'HUB', 'SHA', 'HKG', 'QIH', 'GAN', 'JSU', 'SCH', 'NXA', 'TAI']
+					// 	.forEach(function(d){ 
+					// 		var low=Math.round(100*Math.random()), 
+					// 			mid=Math.round(100*Math.random()), 
+					// 			high=Math.round(100*Math.random());
+					// 		sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]), 
+					// 				avg:Math.round((low+mid+high)/3), color:d3.interpolate("#007eff", "#333333")(low/100)}; 
+					// 	});
 					d3Render.uStatePaths=data;
 					var uStatePaths=data;
 				    var svg = d3.select("#d3MapWrap") 
@@ -62,8 +81,8 @@
 							d3.select("#tooltip_d3map").transition().duration(200).style("opacity", .9);
 
 							d3.select("#tooltip_d3map").html(toolTip(d.n, data[d.id]))
-								.style("left", (d3.event.pageX) + "px")
-								.style("top", (d3.event.pageY-100) + "px");
+								.style("left", (d3.event.pageX-50) + "px")
+								.style("top", (d3.event.pageY-120) + "px");
 						}
 
 						function mouseOut() {
@@ -142,7 +161,7 @@
 				}
 
 				function getChartData(d){
-					var month=getMonth();
+					var month=indexPM.getMonth()-1;
 					for(var i=0,l=d.length;i<l;i++){
 						var _d=d[i];
 						if(_d.monthCond&&_d.monthCond.length>0){
@@ -175,15 +194,7 @@
 					}
 					return (activePath.length===0?inactivePath:activePath);
 				}
-				function getMonth(){
-					var timeDOM=document.querySelector("#d3map-time-select");
-					var month=0;
-					//??
-					return month;
-				}
 			},
-			
-
 			pieChartUpdate:function(data){
 			    var pieData;
 				if(!data){
@@ -195,7 +206,7 @@
 					var propNames=Object.getOwnPropertyNames(data);
 					var numberOfDataPoint=propNames.length;
 				    pieData = d3.range(numberOfDataPoint).map(function (i) {
-			 	       return {id: i, value:data[propNames[i]],name:propNames[i]}
+		 	       		return {id: i, value:data[propNames[i]],name:propNames[i]}
 				    });
 				}
 			    pieChart.data(pieData);
@@ -205,7 +216,8 @@
 			pieChart:function(){
 			        var _chart = {};
 
-			        var _width = 260, _height = 260,
+			        var _width = 260, _height = 290,
+			        	_marginTop=30,
 			                _data = [],
 			                _colors = d3.scale.category20(),
 			                _svg,
@@ -223,16 +235,32 @@
 			            }
 
 			            renderBody(_svg);
+			            	renderHeader(_svg);
 			        };
-
+			        function renderHeader(svg){
+			        	var month=indexPM.getMonth();
+				    	_svg.append("text").style({
+							"text-anchor":"middle",
+							"font-weight":"900"
+						}).attr({
+							"x":"50%",
+							"dy":"1rem"
+						}).text(month+"月"+"目标省份首要污染物情况");
+				    }
 			        function renderBody(svg) {
 			            if (!_bodyG)
 			                _bodyG = svg.append("g")
-			                        .attr("class", "body");
-
+			                        .attr("class", "body").attr("transform","translate(0,"+_marginTop+")");
+                        renderValue(_bodyG);
 			            renderPie();
 			        }
-
+			        function renderValue(_bodyG){
+			        	 _bodyG.append("text").attr("class","valuePercent").attr({
+				        		"x":"50%",
+				        		"y":"50%",
+				        		"dy":"-0.5rem"
+				        	}).style("text-anchor","middle").text("").style("color","white");
+			        }
 			        function renderPie() {
 			            var pie = d3.layout.pie() // <-A
 			                    .sort(function (d) {
@@ -269,7 +297,10 @@
 			                    .attr("fill", function (d, i) {
 			                        return _colors(i);
 			                    });
-
+			            slices.on("mouseover",function(d){
+			            	var value=(Math.abs(d.endAngle-d.startAngle)/(2*Math.PI)*100).toFixed(2)+"%"
+			            	d3.select("#key_PollutantWrap .valuePercent").text(value);
+			            })
 			            slices.transition()
 			                    .attrTween("d", function (d) {
 			                        var currentArc = this.__current__; // <-C
@@ -303,12 +334,18 @@
 			                    })
 			                    .attr("dy", ".35em")
 			                    .attr("text-anchor", "middle")
+			                    .attr("class","pointerEventNone")
 			                    .text(function (d) {
 			                    	if(d.data.value>0){
-			                    		return d.data.name;
+			                    		if(d.data.name==="pm25"){
+			                    			return "pm2.5"
+			                    		}else{
+			                    			return d.data.name;
+			                    		}
 			                    	}
 			                        return "";
 			                    });
+
 			        }
 
 			        _chart.width = function (w) {
@@ -374,8 +411,8 @@
 			barChart:function(){
 				    var _chart = {};
 
-				    var _width = 500, _height = 200,
-				            _margins = {top: 30, left: 30, right: 30, bottom: 30},
+				    var _width = 570, _height = 200,
+				            _margins = {top: 30, left: 30, right: 100, bottom: 30},
 				            _x, _y,
 				            _data = [],
 				            _colors = d3.scale.category10(),
@@ -387,15 +424,24 @@
 				            _svg = d3.select("#airQualityLevelWrap").append("svg")
 				                    .attr("height", _height)
 				                    .attr("width", _width);
-
 				            renderAxes(_svg);
 
 				            defineBodyClip(_svg);
 				        }
-
+						renderHeader(_svg);
 				        renderBody(_svg);
 				    };
+				    function renderHeader(svg){
+				    	var month=indexPM.getMonth();
+				    	_svg.append("text").style({
+							"text-anchor":"middle",
+							"font-weight":"900"
+						}).attr({
+							"x":"50%",
+							"dy":"1rem"
+						}).text(month+"月"+"目标省份空气质量情况");
 
+				    }
 				    function renderAxes(svg) {
 				        var axesG = svg.append("g")
 				                .attr("class", "axes");
@@ -417,18 +463,31 @@
 				                .orient("left");
 
 				        axesG.append("g")
-				                .attr("class", "axis")
+				                .attr("class", "axis x")
 				                .attr("transform", function () {
 				                    return "translate(" + xStart() + "," + yStart() + ")";
 				                })
-				                .call(xAxis);
+				                .call(xAxis).append("text").style({
+				                	"text-anchor":"end",
+				                	"font-weight":"900",
+				                }).text("空气质量评价").attr({
+				                	x:"91%",
+				                	y:"1rem"
+				                });
 
 				        axesG.append("g")
-				                .attr("class", "axis")
+				                .attr("class", "axis y")
 				                .attr("transform", function () {
 				                    return "translate(" + xStart() + "," + yEnd() + ")";
 				                })
-				                .call(yAxis);
+				                .call(yAxis).append("text").style({
+									"text-anchor":"middle",
+									"font-weight":"900",
+									"font-size":"1.2rem"
+								}).text("%").attr({
+				                	x:"-1rem",
+				                	y:"-1rem"
+				                });
 				    }
 
 				    function defineBodyClip(svg) {
@@ -453,7 +512,6 @@
 				                            + "," 
 				                            + yEnd() + ")")
 				                    .attr("clip-path", "url(#body-clip)");
-
 				        renderBars();
 				    }
 				    
@@ -551,6 +609,106 @@
 				    };
 
 				    return _chart;
+			},
+			force:function(){
+				var data={
+					nodes : [{
+						name : "雾霾"
+					}, {
+						name : "废气"
+					}, {
+						name : "健康与疾病"
+					}, {
+						name : "二氧化硫"
+					}, {
+						name : "肺病"
+					}, {
+						name : "口罩"
+					}, {
+						name : "N95标准"
+					}],
+					links :[{
+						source : 0,
+						target : 1
+					}, {
+						source : 0,
+						target : 2
+					}, {
+						source : 0,
+						target : 5
+					}, {
+						source : 1,
+						target : 3
+					}, {
+						source : 2,
+						target : 4
+					},{
+						source : 5,
+						target : 6
+					}]
+				}
+				function _getWidth(){
+					return $("#hazeKeyWordWrap").width();
+				}
+				function _getHeight(){
+					return  $("#hazeKeyWordWrap").height();
+				}
+				var svg=d3.select("#hazeKeyWordWrap").append("svg").attr("width",_getWidth()).attr("height",_getHeight());
+				var nodes = data.nodes;
+				var links = data.links;
+				var force = d3.layout.force().nodes(nodes) // 指定节点数组
+						.links(links) // 指定连线数组
+						.size([_getWidth(), _getHeight()]) // 指定作用域范围
+						.linkDistance(150) // 指定连线长度
+						.charge([-400]); // 相互之间的作用力
+				force.start();
+				// 添加连线
+				var svg_edges = svg.selectAll("line").data(links).enter()
+						.append("line").style("stroke", "#ccc").style(
+								"stroke-width", 1);
+
+				var color = d3.scale.category20();
+
+				// 添加节点
+				var svg_nodes = svg.selectAll("circle").data(nodes).enter()
+						.append("circle").attr("r", 20).style("fill",
+								function(d, i) {
+									return color(i);
+								}).call(force.drag); // 使得节点能够拖动
+
+				// 添加描述节点的文字
+				var svg_texts = svg.selectAll("text").data(nodes).enter()
+						.append("text").style("fill", "white").attr("dx", 20).attr(
+								"dy", 8).text(function(d) {
+									return d.name;
+								});
+
+				force.on("tick", function() { // 对于每一个时间间隔
+					// 更新连线坐标
+					svg_edges.attr("x1", function(d) {
+								return d.source.x;
+							}).attr("y1", function(d) {
+								return d.source.y;
+							}).attr("x2", function(d) {
+								return d.target.x;
+							}).attr("y2", function(d) {
+								return d.target.y;
+							});
+
+					// 更新节点坐标
+					svg_nodes.attr("cx", function(d) {
+								return d.x;
+							}).attr("cy", function(d) {
+								return d.y;
+							});
+
+					// 更新文字坐标
+					svg_texts.attr("x", function(d) {
+								return d.x;
+							}).attr("y", function(d) {
+								return d.y;
+							});
+				});
 			}
 		}
 	
@@ -562,13 +720,41 @@
 	    function renderChart(){
 	    	d3Render.getChartData_render();
 	    }
+	    d3Render.force();
 })();
 
-var IndexPM={
+var indexPM={
+		//2015年几月
+		month:1,
 		timeRangeChange:function(event){
 			var target =event.target;
-			var _value=target.value;
-			var month=target.parentNode.querySelector(".d3map-time-month");
-			month.innerHTML=_value;
-		}
+			var cName=target.className;
+			var monthEle=null;
+			var month;
+			if(cName==="monthItem"){
+				monthEle=target.parentNode;
+			}else if(cName==="oneMonth"){
+				monthEle=target;
+			}else{
+				return;
+			}
+			month=parseInt(monthEle.getAttribute("data-month"));
+			indexPM.month=month;
+
+			var _width=document.querySelector(".oneMonth").offsetWidth;
+			var dotWidth=document.querySelector(".monthItem .dot").offsetWidth;
+			var dist= month*_width-dotWidth;
+			console.log(month*_width)
+			$(".time-select .dot.selected").css("left",dist+"px");
+			// var target =event.target;
+			// var _value=target.value;
+			// var month=target.parentNode.querySelector(".d3map-time-month");
+			// month.innerHTML=_value;
+		},
+		getMonth:function(){
+			var month=indexPM.month;
+			var month=1;
+			//??
+			return month;
+		},
 	}

@@ -10,7 +10,12 @@ body, html {
   font-family: 'Microsoft YaHei','arial';
   overflow: hidden;
 }
-
+text,h2{
+  cursor:default;
+  -moz-user-select:none;
+  -webkit-user-select:none;
+  user-select:none;
+}
 li {
   list-style: none;
   color: white;
@@ -285,6 +290,9 @@ div {
   bottom:0;
 }
 /*css模块*/
+.pointerEventNone{
+  pointer-events:none;
+}
 .rf{
   float:right;
 }
@@ -340,9 +348,87 @@ div {
   }
 .time-select{
   position: absolute;
-  top: 10px;
-  left: 40px;
-  width: 50%;
+  bottom: -40px;
+  left: 0px;
+  white-space: nowrap;
+}
+.time-select::before{
+  content:"2015年";
+  position:absolute;
+  top:-100%;
+  left:0;
+  color:black;
+}
+.time-select .oneMonth{
+  text-align:center;
+  float:left;
+  font-size:0;
+  width:45px;
+}
+.time-select ._oneMonth{
+  text-align:center;
+  float:left;
+  font-size:0;
+}
+.oneMonth .monthItem{
+  cursor: pointer;
+  font-size: 1rem;
+  width:10px;
+}
+.oneMonth .monthItem div{
+  pointer-events:none;
+}
+.time-select .oneMonth:nth-child(1):before{
+  content:">";
+  position:absolute;
+  top: -2px;
+left: -10px;
+}
+.time-select .oneMonth:nth-last-child(1):after{
+  content:">";
+  position:absolute;
+  top: -2px;
+  right: -10px;
+}
+.time-select span{
+  display:inline-block;
+  color:black;
+  cursor:default;
+}
+.time-select .line{
+  vertical-align: top;
+    line-height: 10px;
+    height: 10px;
+    pointer-events:none;
+    font-size: 1rem;
+}
+.time-select .dot{
+    vertical-align: top;
+  display:inline-block;
+  border-radius:5px;
+  width:10px;
+  height:10px;
+  background:transparent;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  border:#737373 1.5px solid;
+}
+.time-select .dot.selected{
+  background:#009beb;
+    vertical-align: top;
+  display:inline-block;
+  border-radius:5px;
+  width:10px;
+  height:10px;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  border:#737373 1.5px solid;
+  position: absolute;
+  left:0;
+  top:0;
+  transition:0.8s all;
 }
 .time-select label{
   color:white;
@@ -363,7 +449,8 @@ div {
   font-weight:900;
 }
 .rightContainer{
-  margin-right:120px;
+  display:inline-block;
+  float:left;
 }
 .defaultInfo{
   background:rgba(235,244,185,0.2);
@@ -376,6 +463,7 @@ div {
   height:260px;
   width:100%;
   text-align: center;
+  margin-top:30px;
 }
 #key_PollutantWrap .defaultInfo{
   border-radius:130px;
@@ -388,7 +476,22 @@ div {
   -webkit-transform:translate(-50%,-50%);
   font-size:1.2rem;
 }
+
+.hazeKeyWordWrap{
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
 /*d3 svg专属*/
+rect.bar:hover{
+  fill-opacity:0.7;
+  cursor:pointer;
+}
+#d3MapSVG path{
+  stroke:rgba(255,255,255,0.1);
+}
 #tooltip_d3map {   
     position: absolute;           
     text-align: center;
@@ -429,11 +532,14 @@ div {
 }
 #tooltip_d3map tr td:nth-child(2){
   text-align:center;
+  white-space: nowrap;
 }
 .d3MapWrap{
   text-align: left;
-  position: absolute;
-  float: left;
+  position: relative;
+  display:inline-block;
+  float:left;
+  margin-left:4%;
 }
 body {
     font-family: "helvetica";
