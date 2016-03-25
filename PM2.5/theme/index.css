@@ -1,6 +1,6 @@
 @charset "UTF-8";
 html{
-  background:black;
+  background:#404B71;
 }
 body, html {
   margin: 0;
@@ -241,6 +241,15 @@ div {
   right:0;
   top:0px;
 }
+.Pabs.appendix{
+background: -moz-linear-gradient(top, rgba(12,51,61,1) 0%, rgba(99,120,183,0.01) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(12,51,61,1) 0%,rgba(99,120,183,0.01) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(12,51,61,1) 0%,rgba(99,120,183,0.01) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0c333d', endColorstr='#036378b7',GradientType=0 ); /* IE6-9 */
+top:0;
+bottom:0;
+
+}
 .appendix li{
   list-style: initial;
   text-align:left;
@@ -285,9 +294,12 @@ div {
   background-size:100% 100%;
 }
 #global_Container{
-  height:90% !important;
+  height:100% !important;
   position:absolute;
   bottom:0;
+}
+.hazeVideoWrap{
+  height:100%;
 }
 /*css模块*/
 .pointerEventNone{
@@ -342,6 +354,14 @@ div {
   -moz-animation: bgposition 100s infinite linear;
   -ms-animation: bgposition 100s infinite linear;
   -o-animation: bgposition 100s infinite linear;
+   -webkit-filter:brightness(1.2);
+}
+.mainWrap.hazeKeyWord{
+background: rgb(6,232,217); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(6,232,217,1) 0%, rgba(0,3,45,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(6,232,217,1) 0%,rgba(0,3,45,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(6,232,217,1) 0%,rgba(0,3,45,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#06e8d9', endColorstr='#00032d',GradientType=0 ); /* IE6-9 */
 }
 .state:hover{
     fill-opacity:0.7;
@@ -540,6 +560,7 @@ rect.bar:hover{
   display:inline-block;
   float:left;
   margin-left:4%;
+  width:600px;
 }
 body {
     font-family: "helvetica";
