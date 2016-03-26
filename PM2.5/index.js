@@ -26,104 +26,164 @@
 	})
 })();
 
-var d3Render={
-	uStatePaths:null,
-	d3Map:function (callback){
-		function tooltipHtml(n, d){	/* function to create html content string in tooltip div. */
-			return "<h4>"+n+"</h4><table>"+
-				"<tr><td>Low</td><td>"+(d.low)+"</td></tr>"+
-				"<tr><td>Average</td><td>"+(d.avg)+"</td></tr>"+
-				"<tr><td>High</td><td>"+(d.high)+"</td></tr>"+
-				"</table>";
+
+var indexPM={
+	init:function(){
+		this.blogLinkInit();
+	},
+	blogLinkInit:function(){
+		$(".person_photo.ysq").on("click",function(){
+			
+		})
+		$(".person_photo.bk").on("click",function(){
+			window.open("http://noa-noa.lofter.com");
+		})
+		$(".person_photo.lc").on("click",function(){
+			window.open("http://luochenscorpion.lofter.com");
+			
+		})
+		$(".person_photo.jzy").on("click",function(){
+			window.open("http://weibo.com/u/2722410805");
+
+		})
+	},
+	//2015年几月
+	month:1,
+	timeRangeChange:function(event){
+		var target =event.target;
+		var cName=target.className;
+		var monthEle=null;
+		var month;
+		if(cName==="monthItem"){
+			monthEle=target.parentNode;
+		}else if(cName==="oneMonth"){
+			monthEle=target;
+		}else{
+			return;
 		}
-		d3.json("./data/chinaMap.json",function(data){
-			var sampleData ={};	/* Sample data */	
-			// data.forEach(function(d,i){
-			// 	var _aqiValue;
-			// 	var low,high,average;
-			// 	if(d.monthCond){
-			// 		_aqiValue=d.monthCond._aqiValue;
-			// 		if(_aqiValue){
-			// 			 low=_aqiValue.low;
-			// 			 high=_aqiValue.high;
-			// 			 average=_aqiValue.average;
-			// 		}
-			// 	}
-			// 	(!low)&&(low=0);
-			// 	(!high)&&(high="未知");
-			// 	(!average)&&(average="未知");
+		month=parseInt(monthEle.getAttribute("data-month"));
+		indexPM.month=month;
 
-			// 	var average=10;
-			// 	sampleData[d.id]={low:low, high:high, 
-			// 	avg:average, color:d3.interpolate("#007eff", "#333333")(average/100)}; 
-			// })
-			['JXI', 'LIA', 'TIB', 'NMG', 'SHH', 'CHQ', 'XIN', 'SHD', 'HEN', 'GUD', 'GUI', 'BEJ', 'MAC', 'TAJ', 'HLJ', 'HEB', 'ZHJ', 'ANH', 'GXI', 'HAI', 'JIL', 'SHX', 'HUN', 'YUN', 'FUJ', 'HUB', 'SHA', 'HKG', 'QIH', 'GAN', 'JSU', 'SCH', 'NXA', 'TAI']
-				.forEach(function(d){ 
-					var low=Math.round(100*Math.random()), 
-						mid=Math.round(100*Math.random()), 
-						high=Math.round(100*Math.random());
-					sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]), 
-							avg:Math.round((low+mid+high)/3), color:d3.interpolate("#007eff", "#333333")(low/100)}; 
-				});
-			d3Render.uStatePaths=data;
-			var uStatePaths=data;
-		    var svg = d3.select("#d3MapWrap") 
-		            .append("svg") 
-		            .attr("id","d3MapSVG")
-		            .attr("width",600) 
-		            .attr("height",470)
-		            .attr("text-align","left");
-	        var uStates = {};
-	 	    uStates.draw = function(id, data, toolTip) {
-				function mouseOver(d) {
-					d3.select("#tooltip_d3map").transition().duration(200).style("opacity", .9);
+		var _width=document.querySelector(".oneMonth").offsetWidth;
+		var dotWidth=document.querySelector(".monthItem .dot").offsetWidth;
+		var dist= month*_width-dotWidth;
+		$(".time-select .dot.selected").css("left",dist+"px");
+		chinaMap.data(d3Render.allData)
+		chinaMap.render();
+		d3Render.getChartData_render();
+	},
+	getMonth:function(){
+		var month=indexPM.month;
+		return month;
+	},
+}
+indexPM.init();
 
-					d3.select("#tooltip_d3map").html(toolTip(d.n, data[d.id]))
-						.style("left", (d3.event.pageX-50) + "px")
-						.style("top", (d3.event.pageY-120) + "px");
-				}
 
-				function mouseOut() {
-					d3.select("#tooltip_d3map").transition().duration(500).style("opacity", 0);
-				}
-
-				function click(d){
-					var id=d.id;
-					var mode="total";
-					var _path=d3.select("path#"+id);
-					_path.style("fill",function(d){
-						if(_path.attr("active")==="true"){
-							_path.attr("active","false")
-							return data[d.id].color;
-						}else{
-							mode="several";
-							_path.attr("active","true");
-							return "yellow"
-						}
-					});
-
-					d3Render.getChartData_render();
-				}							
-				
-				d3.select(id).selectAll(".state")
-					.data(uStatePaths).enter().append("path").attr("class", "state").attr("id",function(d){
-						return d.id;
-					}).attr("d", function(d) {
-						return d.d;
-					})
-					.style("fill", function(d) {
-						return data[d.id].color;
-					}).style("cursor","pointer")
-					.on("mouseover", mouseOver).on("mouseout", mouseOut)
-					.on("click",click);
-
+var d3Render={
+	allData:null,//原始数据
+	d3Map:function (){
+		var _map={};
+		var _svg,
+		_data,
+		id="d3Map";
+		_map.render=function(callback){
+			if(!_svg){
+			    _svg = d3.select("#d3MapWrap") 
+			            .append("svg") 
+			            .attr("id","d3MapSVG")
+			            .attr("width",600) 
+			            .attr("height",470)
+			            .attr("text-align","left");
 			}
-			/* draw states on id #d3MapSVG */	
-			uStates.draw("#d3MapSVG", sampleData, tooltipHtml);
+	        renderMap();
 			if(callback){
 				callback();
 			}
-		})
+		}
+		function renderMap(){
+			var sampleData ={};	/* AQI细节数据 */	
+			var month=indexPM.month-1;
+			var _color=d3.interpolate("#0071b8", "#00122b");
+			_data.forEach(function(d,i){
+				var _aqiValue;
+				var low,high,average;
+				if(d.monthCond&&d.monthCond.length>0){
+					_aqiValue=(d.monthCond)[month].aqiValue;
+					if(_aqiValue){
+						 low=_aqiValue.low;
+						 high=_aqiValue.high;
+						 average=_aqiValue.average;
+					}
+				}
+				(!low)&&(low="未知");
+				(!high)&&(high="未知");
+				(!average)&&(average="未知");
+				var cal_average=isNaN(Number(average))?0.1:average;
+				sampleData[d.id]={low:low, high:high, 
+				avg:average, color:_color(cal_average/120)}; 
+			})
+			d3Render.allData=_data;
+			renderBody("#d3MapSVG", sampleData,_data);
+		}
+		/*draw states on id #d3MapSVG */
+		function renderBody(id, sampleData,uStatePaths){
+			var provinces=d3.select(id).selectAll(".state").attr("fill", function(d) {
+				return sampleData[d.id].color;
+			}).data(uStatePaths);
+			provinces.enter().append("path").attr("class", "state").attr("id",function(d){
+				return d.id;
+			}).attr("d", function(d) {
+				return d.d;
+			}).attr("fill", function(d) {
+				return sampleData[d.id].color;
+			}).style("cursor","pointer")
+			.on("mouseover", mouseOver).on("mouseout", mouseOut)
+			.on("click",click);
+			function tooltipHtml(n, d){	/* function to create html content string in tooltip div. */
+				return "<h4>"+n+"AQI</h4><table>"+
+					"<tr><td>Low</td><td>"+(d.low)+"</td></tr>"+
+					"<tr><td>Average</td><td>"+(d.average)+"</td></tr>"+
+					"<tr><td>High</td><td>"+(d.high)+"</td></tr>"+
+					"</table>";
+			}
+			function mouseOver(d,i) {
+				var _month=indexPM.month-1;
+				var aqiValue=(d.monthCond)[_month].aqiValue;
+				d3.select("#tooltip_d3map").transition().duration(200).style("opacity", .9);
+				d3.select("#tooltip_d3map").html(tooltipHtml(d.n, aqiValue))
+					.style("left", (d3.event.pageX-50) + "px")
+					.style("top", (d3.event.pageY-120) + "px");
+			}
+
+			function mouseOut() {
+				d3.select("#tooltip_d3map").transition().duration(500).style("opacity", 0);
+			}
+
+			function click(d){
+				var id=d.id;
+				var mode="total";
+				var _path=d3.select("path#"+id);
+				_path.style("fill",function(d){
+					if(_path.attr("active")==="true"){
+						_path.attr("active","false")
+						return sampleData[d.id].color;
+					}else{
+						mode="several";
+						_path.attr("active","true");
+						return "yellow"
+					}
+				});
+				d3Render.getChartData_render();
+			}	
+		}
+				
+		_map.data=function(d){
+			if (!arguments.length) return _data;
+            _data = d;
+            return _map;
+		}
+		return _map;
 	},
 	//得到图表数据并渲染
 	getChartData_render:function(){
@@ -146,6 +206,7 @@ var d3Render={
 			"so2": 1,
 			"o3": 1
 		}
+		var map_Data=[];
 		var d=getActivePath();
 		getChartData(d);
 		d3Render.barChartUpdate(barChart_Data,total);
@@ -157,7 +218,6 @@ var d3Render={
 			$("#key_PollutantWrap .defaultInfo").show();
 			$("#d3PieChart").css("display","none");
 		}
-
 		function getChartData(d){
 			var month=indexPM.getMonth()-1;
 			for(var i=0,l=d.length;i<l;i++){
@@ -176,10 +236,11 @@ var d3Render={
 				}
 			}
 		}
+		//获取已选中的目标省份，如果没选则目标省份为所有省份
 		function getActivePath(){
 			var activePath=[];
 			var inactivePath=[];
-			var data=d3Render.uStatePaths;
+			var data=d3Render.allData;
 			var _path;
 			for(var i=0,l=data.length;i<l;i++){
 				var _pathId="path#"+data[i].id;
@@ -191,6 +252,13 @@ var d3Render={
 				}
 			}
 			return (activePath.length===0?inactivePath:activePath);
+		}
+	},
+	d3MapUpdate:function(data){
+		chinaMap.data(data);
+	    chinaMap.render(renderChart);
+	    function renderChart(){
+			d3Render.getChartData_render();
 		}
 	},
 	pieChartUpdate:function(data){
@@ -257,17 +325,22 @@ var d3Render={
 	            if (!_bodyG)
 	                _bodyG = svg.append("g")
 	                        .attr("class", "body").attr("transform","translate(0,"+_marginTop+")");
-                renderValue(_bodyG);
+                renderValueAndName(_bodyG);
 	            renderPie();
 	        }
-	        function renderValue(_bodyG){
+	        function renderValueAndName(_bodyG){
 	        	if(!_value){
 	        	 	_value=_bodyG.append("text").attr("class","valuePercent").attr({
 		        		"x":"50%",
-		        		"y":"50%",
+		        		"y":"45%",
 		        		"dy":"-0.5rem"
-		        	}).style("text-anchor","middle").text("").style("color","white");
+		        	}).style("text-anchor","middle").text("").attr("stroke","#08182e");
 	        	}
+	        	_bodyG.append("text").attr("class","itemName").attr({
+	        			"x":"50%",
+		        		"y":"55%",
+		        		"dy":"-0.5rem"
+	        	}).style("text-anchor","middle").text("");
 	        }
 	        function renderPie() {
 	            var pie = d3.layout.pie() 
@@ -306,11 +379,17 @@ var d3Render={
 	                        return _colors(i);
 	                    });
 	            slices.on("mouseover",function(d){
+	            	var name=d.data.name.toUpperCase();
+	            	if(name==="PM25"){
+	            		name="PM2.5";
+	            	}
 	            	var value=(Math.abs(d.endAngle-d.startAngle)/(2*Math.PI)*100).toFixed(2)+"%"
+	            	d3.select("#key_PollutantWrap .itemName").text(name)
 	            	d3.select("#key_PollutantWrap .valuePercent").text(value);
 	            })
 	            slices.on("mouseout",function(d){
 	            	d3.select("#key_PollutantWrap .valuePercent").text("");
+	            	d3.select("#key_PollutantWrap .itemName").text("");
 	            })
 	            slices.transition()
 	                    .attrTween("d", function (d) {
@@ -348,10 +427,10 @@ var d3Render={
 	                    .attr("class","label pointerEventNone")
 	                    .text(function (d) {
 	                    	if(d.data.value>0){
-	                    		if(d.data.name==="pm25"){
-	                    			return "pm2.5"
+	                    		if(d.data.name.toLowerCase()==="pm25"){
+	                    			return "PM2.5"
 	                    		}else{
-	                    			return d.data.name;
+	                    			return d.data.name.toUpperCase();
 	                    		}
 	                    	}
 	                    });
@@ -631,22 +710,33 @@ var d3Render={
 		}else{
 			return;
 		}
+		var dataDetail={
+			fog:"",
+			source:"",
+		}
 		var data={
 			nodes : [{
 				name : "雾霾"
 			}, {
-				name : "废气"
+				name : "防护"
 			}, {
-				name : "健康与疾病"
+				name : "疾病与健康"
 			}, {
-				name : "二氧化硫"
+				name : "污染源"
 			}, {
-				name : "肺病"
+				name : "机动车"
+			}, {
+				name : "工业生产"
+			}, {
+				name : "秸秆燃烧"
 			}, {
 				name : "口罩"
 			}, {
-				name : "N95标准"
-			}],
+				name : "心脏病"
+			}, {
+				name : "肺病"
+			}
+			],
 			links :[{
 				source : 0,
 				target : 1
@@ -655,15 +745,24 @@ var d3Render={
 				target : 2
 			}, {
 				source : 0,
-				target : 5
-			}, {
-				source : 1,
 				target : 3
 			}, {
+				source : 1,
+				target : 7
+			},{
 				source : 2,
+				target : 8
+			},{
+				source : 2,
+				target : 9
+			},{
+				source : 3,
 				target : 4
 			},{
-				source : 5,
+				source : 3,
+				target : 5
+			},{
+				source : 3,
 				target : 6
 			}]
 		}
@@ -679,19 +778,29 @@ var d3Render={
 		var force = d3.layout.force().nodes(nodes) // 指定节点数组
 				.links(links) // 指定连线数组
 				.size([_getWidth(), _getHeight()]) // 指定作用域范围
-				.linkDistance(150) // 指定连线长度
+				.linkDistance(130) // 指定连线长度
+				.gravity(0.1)
 				.charge(-300) // 相互之间的作用力
 		force.start();
+		setTimeout(function(){
+			force.charge(-2000);
+			force.start();
+		},4700)
 		// 添加连线
 		var svg_edges = svg.selectAll("line").data(links).enter()
 				.append("line").style("stroke", "#ccc").style(
 						"stroke-width", 1);
 
-		var color = d3.scale.category20();
+		var color = d3.scale.category20c();
 
 		// 添加节点
 		var svg_nodes = svg.selectAll("circle").data(nodes).enter()
-				.append("circle").attr("r", 20).style("fill",
+				.append("circle").attr("r",function(d){
+					if(d.index===0){
+						return 30;
+					}
+					return 10;
+				}).style("fill",
 						function(d, i) {
 							return color(i);
 						}).call(force.drag); // 使得节点能够拖动
@@ -731,43 +840,10 @@ var d3Render={
 		});
 	}
 }
-
-
-d3Render.d3Map(renderChart);
+var chinaMap=d3Render.d3Map();
 var barChart=d3Render.barChart().x(d3.scale.linear().domain([0, 12])).y(d3.scale.linear().domain([0, 100]));
 var pieChart=d3Render.pieChart().radius(130).innerRadius(50);
-
-function renderChart(){
-	d3Render.getChartData_render();
-}
-
-
-var indexPM={
-		//2015年几月
-		month:1,
-		timeRangeChange:function(event){
-			var target =event.target;
-			var cName=target.className;
-			var monthEle=null;
-			var month;
-			if(cName==="monthItem"){
-				monthEle=target.parentNode;
-			}else if(cName==="oneMonth"){
-				monthEle=target;
-			}else{
-				return;
-			}
-			month=parseInt(monthEle.getAttribute("data-month"));
-			indexPM.month=month;
-
-			var _width=document.querySelector(".oneMonth").offsetWidth;
-			var dotWidth=document.querySelector(".monthItem .dot").offsetWidth;
-			var dist= month*_width-dotWidth;
-			$(".time-select .dot.selected").css("left",dist+"px");
-			d3Render.getChartData_render();
-		},
-		getMonth:function(){
-			var month=indexPM.month;
-			return month;
-		},
-	}
+d3.json("./data/chinaMap.json",function(data){
+	d3Render.allData=data;
+	d3Render.d3MapUpdate(d3Render.allData);
+})

@@ -79,6 +79,7 @@ div {
 .full.of .effectBtnWrap li .title {
   visibility: hidden;
   white-space: nowrap;
+  pointer-events:none;
 }
 .full.of .effectBtnWrap li .title.show {
   visibility: visible;
@@ -125,7 +126,6 @@ div {
   text-align: center;
   color: white;
   padding-top: 2%;
-  height: 56px;
   margin:0;
   z-index:2;
   -webkit-user-select:none;
@@ -223,6 +223,78 @@ div {
   left: 0;
   right: 0;
 }
+@-webkit-keyframes flipInX {
+  from {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    opacity: 1;
+  }
+
+  80% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+  }
+
+  to {
+    -webkit-transform: perspective(400px);
+    transform: perspective(400px);
+  }
+}
+
+@keyframes flipInX {
+  from {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    opacity: 1;
+  }
+
+  80% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+  }
+
+  to {
+    -webkit-transform: perspective(400px);
+    transform: perspective(400px);
+  }
+}
+
+.flipInX {
+  animation: 1s flipInX forwards;
+  -moz-animation: 1s flipInX forwards;
+  -webkit-animation: 1s flipInX forwards;
+}
+
 .full.of .topic{
   position:absolute;
   z-index:2;
@@ -232,7 +304,9 @@ div {
   padding:0;
   -webkit-transform:translate(-50%,-50%);
           transform:translate(-50%,-50%);
-
+}
+.full.of .topic p{
+  margin:0;
 }
 #stars{
   position:absolute;
@@ -248,7 +322,6 @@ background: linear-gradient(to bottom, rgba(12,51,61,1) 0%,rgba(99,120,183,0.01)
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0c333d', endColorstr='#036378b7',GradientType=0 ); /* IE6-9 */
 top:0;
 bottom:0;
-
 }
 .appendix li{
   list-style: initial;
@@ -256,6 +329,7 @@ bottom:0;
 }
 .appendix li p{
   padding-left:2rem;
+  line-height:1.5rem;
 }
 .appendix h3{
   text-align: left;
@@ -270,8 +344,33 @@ bottom:0;
   height:100px;
   border-radius:50px;
   display:inline-block;
-
+  cursor: pointer;
+  position: relative;
 }
+.onePerson:nth-child(1) .person_photo:hover::after{
+  top:0px;
+  bottom:0px;
+  right:0px;
+  left:0px;
+  border-radius:50px;
+}
+.appendix .person_photo:hover::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  top:-2px;
+  bottom:-2px;
+  right:-2px;
+  left:-2px;
+  border-radius:52px;
+  opacity: 0.6;
+background: rgb(255,255,136); /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,136,1) 0%, rgba(255,255,136,1) 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,136,1) 0%,rgba(255,255,136,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center, rgba(255,255,136,1) 0%,rgba(255,255,136,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff88', endColorstr='#ffff88',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
 .AuthorInfoWrap{
   position:absolute;
   left:0;
@@ -321,6 +420,12 @@ bottom:0;
   bottom:20px;
   color:white;
 }
+.vMiddle{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+}
 @keyframes bgposition{
   0%{background-position:0 0;}
   100%{background-position: 100% 0}
@@ -347,8 +452,50 @@ bottom:0;
   
 }
 /*各个分页*/
+.keyWordWrap {
+  position:absolute;
+  top:0px;
+  left:0;
+  right:0;
+  bottom: 0;
+}
+.keyWordWrap .desmonstration{
+  position: absolute;
+  right:60%;
+  top:0;
+  left:0;
+  bottom: 0;
+  background: rgb(84,163,238) ;
+  background: -moz-linear-gradient(left,  rgba(109,179,242,1)  0%,  rgba(84,163,238,1)  100%);
+  background: -webkit-linear-gradient(left,  rgba(109,179,242,1)  0%,  rgba(84,163,238,1)  100%);
+  background: -linear-gradient(left,  rgba(109,179,242,1)  0%,  rgba(84,163,238,1)  100%);
+}
+.keyWordWrap .desmonstration .sourceDemon{
+  position:absolute;
+  bottom:0;
+  color:#4f5359;
+  text-align:left;
+}
+.sourceDemon .sourceTitle{
+  font-weight:900;
+  font-size:1.2rem;
+  margin-bottom:0.5rem;
+
+}
+.sourceDemon ul{
+  margin-top:0;
+}
+.desmonstration .sourceDemon li,.desmonstration .sourceDemon a{
+  color:#4f5359;
+  list-style: initial;
+}
 .mainWrap.china_distibution{
-  background:url("images/cloudy.png") center center repeat;
+ /* background:url("images/cloudy.png") center center repeat;*/
+background: rgb(200,200,200); /* Old browsers */
+background: -moz-linear-gradient(45deg, rgba(200,200,200,1) 0%, rgba(104,104,104,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(45deg, rgba(200,200,200,1) 0%,rgba(104,104,104,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(45deg, rgba(200,200,200,1) 0%,rgba(104,104,104,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#686868',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
   animation: bgposition 100s infinite linear;
   -webkit-animation: bgposition 100s infinite linear;
   -moz-animation: bgposition 100s infinite linear;
@@ -356,12 +503,8 @@ bottom:0;
   -o-animation: bgposition 100s infinite linear;
    -webkit-filter:brightness(1.2);
 }
-.mainWrap.hazeKeyWord{
-background: rgb(6,232,217); /* Old browsers */
-background: -moz-linear-gradient(top, rgba(6,232,217,1) 0%, rgba(0,3,45,1) 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top, rgba(6,232,217,1) 0%,rgba(0,3,45,1) 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom, rgba(6,232,217,1) 0%,rgba(0,3,45,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#06e8d9', endColorstr='#00032d',GradientType=0 ); /* IE6-9 */
+.mainWrap.hazeKeyWord .Pabs{
+ z-index: 2;
 }
 .state:hover{
     fill-opacity:0.7;
@@ -499,10 +642,14 @@ left: -10px;
 
 .hazeKeyWordWrap{
   position: absolute;
-  top: 80px;
+  top: 0px;
   bottom: 0;
   right: 0;
-  left: 0;
+  left: 40%;
+  background: rgb(30,105,222) ;
+  background: -moz-linear-gradient(left, rgba(54,144,240,1) 0%, rgba(30,105,222,1)  100%);
+  background: -webkit-linear-gradient(left, rgba(54,144,240,1) 0%, rgba(30,105,222,1)  100%);
+  background: linear-gradient(left, rgba(54,144,240,1) 0%, rgba(30,105,222,1)  100%);
 }
 /*d3 svg专属*/
 rect.bar:hover{

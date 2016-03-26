@@ -20,7 +20,13 @@
 		<div id="mainContainer" class="main js_main" style="background:black;top:0">
 			<div id="mainWrap0" class="mainWrap js_mainWrap">
 				<div class="textWrap">
-					<h2 class="topic">PM2.5的分布与影响</h2>
+					<h2 class="topic">
+						<div class="flipInX">
+							<p style="font-size: 3.4rem;">PM2.5的分布与影响</p>
+							<p style="font-size: 1.8rem;">PM2.5:distribution and influence</p>
+							<p style="font-size: 1rem;margin-top: 22px;">YE Shiqing,BAI Kai,JIANG Zhiyong,LUO Chen</p>
+						</div>
+					</h2>
 					<canvas id="stars"  width="" height="" style=""></canvas>
 				</div>
 			</div>
@@ -35,7 +41,22 @@
 						<h2 class="h2Anima1">雾霾关键词</h2>
 					</div>
 				</div>
-				<div id="hazeKeyWordWrap" class="hazeKeyWordWrap">
+				<div class="keyWordWrap">
+					<div class="desmonstration">
+						<div class="vMiddle">
+						<div style="max-width:100%;width:360px;text-indent:2rem;line-height:1.6rem;text-align:left">谈到空气污染现象，媒体和公众喜欢用“雾霾”这个词，但是气象、环保部门还有专家学者喜欢用“霾”或者“灰霾”这两个词。实际上"雾霾”是非规范性的学术名词。这个词冒出来主要是2013年春节以后（2013年春节前后有一场中国大范围持续的重污染天气过程，受到了媒体广泛的关注和报道），媒体比较快地接受了这个词，然后大量使用，公众也很快接受。在科学上雾和霾是截然不同的两种天气现象，其产生的背景、气象条件、化学组成等都不同。北京气象台、中央气象台发布大雾预警和霾预警是独立发的，各有各的预警信号，但是到了电视台、电台、报刊、网络等媒体最后就混在一起说成“雾霾”。中央气象台在央视每天要做大范围的天气预报，比如说河南出现雾，北京、河北出现霾，它要分着说，一分钟的电视时间就来不及分说，所以它会说华北平原有可能出现雾、霾。“雾霾”这个词的源头就是这么来的。</div>
+						</div>
+						<div class="sourceDemon">
+							<p class="sourceTitle">数据来源：</p>
+							<ul>
+								<li>维基百科</li>
+								<li><a href="http://www.mep.gov.cn/zwgk/hjtj/qghjtjgb/" target="_blank">
+									《中国环境保护部年度统计公报》
+								</a></li>
+							</ul>
+						</div>
+					</div>
+					<div id="hazeKeyWordWrap" class="hazeKeyWordWrap"></div>
 				</div>
 			</div>
 			<div class="mainWrap js_globeWrap globeWrap page2">
@@ -141,7 +162,7 @@
 										<span class="line">- - - -</span>
 									</span>
 								</div>
-								<div id="tooltip_d3map"></div><!-- div to hold tooltip. -->
+								<div id="tooltip_d3map"></div>
 							</div>
 							<div class="rightContainer">
 								<div id="airQualityLevelWrap" class="airQualityLevelWrap">
@@ -195,7 +216,9 @@
 								</div>
 								<div class="onePerson lc">
 									<div class="person_photo lc"></div>
-									<div class="name">罗晨</div>
+									<a href="http://weibo.com/bonjourbaby1994" target="_blank">
+										<div class="name">罗晨</div>
+									</a>
 									<div class="academy">中国传媒大学新闻学院</div>
 									<div class="person_details">传播研究方法研究生在读</div>
 								</div>

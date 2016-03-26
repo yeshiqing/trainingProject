@@ -145,8 +145,6 @@ var systemIndex = {
 				addClass(mainContainer,"addTransition");
 				topOrigin = parseInt(mainContainer.style.top);
 				mainContainer.style.top=(-_i - d) * 100+"%";
-				console.log(_i)
-				console.log(d)
 			}
 			if (func) {
 				setTimeout(function() {
