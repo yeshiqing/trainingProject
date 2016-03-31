@@ -23,7 +23,7 @@ Particles.prototype.repulsion = function(target) {
 	var force=p5.Vector.sub(this.pos, target)
 	var d=force.mag();
 	if(d<300){
-		force.setMag(amplitude.getLevel()*2000/d);//反比例函数模型：距离越近，斥力越大；距离越远，斥力越小。
+		force.setMag(amplitude.getLevel()*1600/d);//反比例函数模型：距离越近，斥力越大；距离越远，斥力越小。
 		this.applyForce(force);
 	}
 	if(d>400&&d<600){
@@ -45,7 +45,7 @@ Particles.prototype.applyForce = function(force) {
 }
 Particles.prototype.update = function() {
 	this.vel.add(this.acc);
-	this.vel.limit(this.maxSpeed);//限制它的最大速度
+	this.vel.limit(this.maxSpeed/2);//限制它的最大速度
 	this.pos.add(this.vel);
 	this.acc.mult(0);
 }

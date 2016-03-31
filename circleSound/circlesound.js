@@ -4,9 +4,6 @@ function preload(){
 }
 function setup() {
     var soundFile = createAudio('say something.mp3');
-    for(var i in p5){
-        alert(i)
-    }
     fft = new p5.FFT(0.9, numBands); //此值大小只允许在0-1；
     amplitude = new p5.Amplitude(0.1); //此处用于控制生成圆点的大小
     soundFile.connect(fft);
