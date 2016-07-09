@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>firefox中window.getSelection()对input失效的问题，如何获取input的选中文字？</title>
+</head>
+<body>
+	<div>请随意用鼠标划词，并观察console中的变化</div>
+	<input type="text" value="随意用鼠标划词">
+	<script>
+	//window.getSelection()表示选中的selection对象。请随意用鼠标划词。看console是否是划词的值
+	//chrome和firefox不一样效果，firefox下input的选中词不会被window.getSelection()监控到。
+	// var input=document.querySelector("input");
+	setInterval(function(){
+		var str_select=document.getSelection().toString();
+		console.log(str_select);
+		// console.log(input.selectionStart);//解决答案在这里
+		// console.log(input.selectionEnd);//解决答案在这里
+	},600);
+	</script>
+</body>
+</html>
