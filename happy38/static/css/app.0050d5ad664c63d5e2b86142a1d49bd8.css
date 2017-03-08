@@ -1,0 +1,284 @@
+
+#app[data-v-288975d1] {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html[data-v-288975d1] {
+  min-height: 100vh;
+}
+*[data-v-288975d1] {
+  transition: all .3s;
+}
+
+.styleEditor pre{
+  -moz-user-select:none;
+  -webkit-user-select:none;
+      -ms-user-select:none;
+          user-select:none;
+}
+
+.code[data-v-2ca90776] {
+  display: none;
+}
+
+.htmlMode[data-v-2df95543] {
+  animation: flip 2s;
+}
+@keyframes flip {
+from {
+    opacity: 0;
+}
+to {
+    opacity: 1;
+}
+}
+
+.container {
+    position: relative;
+    width: 240px;
+}
+.head-up {
+    border-radius: 110px 110px 110px 110px;
+    left: 8px;
+    top: 2px;
+    position: absolute;
+    z-index: 1;
+}
+.hold-head {
+  position: relative;
+  height: 200px;
+}
+.head {
+  position: relative;
+  margin: 0 auto;
+}
+.ear {
+    position: absolute;
+    overflow: hidden;
+}
+.ear-right:before {
+    transform: rotate(-15deg);
+}
+.eye-left {
+  left: 36px;
+}
+.eye-right {
+  right: 36px;
+}
+.eye-left .iris-small {
+    left: 7px;
+    top: 32px;
+    transform: rotate(27deg);
+}
+.eye-right .iris-small {
+    left: 25px;
+    top: 33px;
+    transform: rotate(-25deg);
+}
+.eyebrow-left {
+    left: 35px;
+    transform: rotate(22deg);
+}
+.eyebrow-right {
+    right: 35px;
+    transform: rotate(-22deg);
+}
+.iris-left {
+    right: 7px;
+ 
+    /* animation */
+    animation: pisca 3s infinite step-start 0s;
+}
+.iris-right {
+  left: 7px;
+ 
+    /* animation */
+    animation: pisca 3s infinite step-start 0s;
+}
+.tip {
+    color: #444;
+    font-size: 24px;
+    text-align: center;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+.ear-left {
+    transform: rotate(-26deg) skewX(25deg) skewY(0deg);
+    transform-origin: 100% 100%;
+ 
+    /* animation */
+    animation: ear_left 4.5s infinite linear 0s;
+}
+.ear-left:before {
+    transform: rotate(18deg);
+}
+.ear-right {
+    box-shadow: 11px -9px 0 2px rgba(0, 0, 0, 0.2) inset;
+    transform: rotate(-90deg) skewX(27deg) skewY(0deg);
+    transform-origin: 0 0;
+ 
+    /* animation */
+    animation: ear_right 3s infinite linear 0s;
+}
+.eye {
+  background-color: #000000;
+    border-radius: 50% 50% 50% 50%;
+    overflow: hidden;
+    position: absolute;
+}
+.eyebrow {
+    /* animation */
+    animation: angry 5s infinite step-start 2s;
+}
+.nose-bottom {
+    position: absolute;
+    top: -10px;
+    transform: rotate(135deg);
+}
+.hold-thunder {
+    position: absolute;
+    opacity: 0;
+ 
+    /* animation */
+    animation: light 5s infinite step-start 2s;
+}
+.hold-thunder1 {
+    left: 0px;
+    top: -4px;
+}
+.hold-thunder2 {
+    left: 25px;
+    top: 4px;
+    transform: rotate(111deg);
+}
+.hold-thunder3 {
+    left: 25px;
+    top: 4px;
+    transform: rotate(25deg);
+}
+.cheek {
+  background-color: #EC0000;
+    border-radius: 50% 50% 50% 50%;
+    position: absolute;
+}
+.cheek-left {
+  left: 4px;
+}
+.cheek-right {
+    right: -3px;
+}
+.light-left {
+    left: -35px;
+}
+.light-right {
+    right: -43px;
+}
+.light{
+
+    background-image:
+        -moz-radial-gradient(circle, #FFFFFF 2px, rgba(255,240,174,.5) 4px, rgba(255, 255, 253, 0.1) 30px),
+        -moz-radial-gradient(circle, #FFFFFF 1px, rgba(255,186,170,.4) 3px, transparent 30px),
+        -moz-radial-gradient(circle, rgba(255,255,255,.9) 1px, rgba(251,255,186,.3) 2px, transparent 40px),
+        -moz-radial-gradient(circle, rgba(255,255,255,.4), rgba(253,255,219,.2) 1px, transparent 30px);
+ 
+    background-image:
+        -webkit-gradient(radial, 50% 50%, 2, 50% 50%, 30, from(white), color-stop(0.1, rgba(255,240,174,.5)), to(rgba(255, 255, 253, 0.1))),
+        -webkit-gradient(radial, 50% 50%, 1, 50% 50%, 30, from(white), color-stop(0.1, rgba(255,186,170,.4)), to(transparent)),
+        -webkit-gradient(radial, 50% 50%, 1, 50% 50%, 40, from(rgba(255,255,255,.9)), color-stop(0.05, rgba(251,255,186,.3)), to(transparent)),
+        -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 30, from(rgba(255,255,255,.4)), color-stop(0.03, rgba(253,255,219,.2)), to(transparent));
+ 
+    opacity: 0;
+ 
+    /* animation */
+    animation: light 5s infinite step-start 2s;
+}
+.tongue{
+      z-index: 10;
+    box-shadow: 0 4px 0 2px #a81729 inset;
+}
+.tongue:before {
+    content: "";
+    transform: rotate(-17deg);
+    width: 7px;
+    top: 0;
+}
+.tongue:after {
+    right: -11px;
+    position: absolute;
+    top: 0;
+    transform: rotate(16deg);
+}
+.mouth-open.active { opacity: 1;
+}
+.mouth-open.active + .hold-mouth > .mouth-center { background-color: #000;
+}
+
+/* ANIMATIONS
+========================================================================== */
+ 
+/* PISCA */
+ 
+ 
+/* EAR RIGHT */
+@keyframes ear_right {
+0% {
+        transform: rotate(-90deg) skewX(27deg) skewY(0deg);
+}
+50% {
+         transform: rotate(-87deg) skewX(27deg) skewY(0deg);
+}
+100% {
+         transform: rotate(-90deg) skewX(27deg) skewY(0deg);
+}
+}
+ 
+ 
+/* EAR LEFT */
+@keyframes ear_left {
+0% {
+        transform: rotate(-26deg) skewX(25deg) skewY(0deg);
+}
+50% {
+        transform: rotate(-22deg) skewX(25deg) skewY(0deg);
+}
+100% {
+        transform: rotate(-26deg) skewX(25deg) skewY(0deg);
+}
+}
+ 
+ 
+/* ANGRY */
+@keyframes angry {
+0% { opacity: 0;
+}
+5% { opacity: 1;
+}
+19% { opacity: 1;
+}
+25% { opacity: 0;
+}
+100% { opacity: 0;
+}
+}
+ 
+ 
+/* LIGHT */
+@keyframes light {
+0% { opacity: 0;
+}
+5% { opacity: 1;
+}
+10% { opacity: 0;
+}
+15% { opacity: 1;
+}
+20% { opacity: 0;
+}
+100% { opacity: 0;
+}
+}    
+*{margin: 0; padding: 0;}
+*{box-sizing: border-box;}
+*::before{box-sizing: border-box;}
+*::after{box-sizing: border-box;}
+/*# sourceMappingURL=app.0050d5ad664c63d5e2b86142a1d49bd8.css.map*/
