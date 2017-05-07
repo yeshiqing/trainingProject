@@ -55,34 +55,7 @@ animation: stroke3 6s  ease-in-out forwards;
     stroke-dasharray: 80 160;
   }
 }
-@media all and (max-width: 768px){
-  @keyframes stroke {
-    100% {
-      stroke-dashoffset: 1000;
-      stroke-dasharray: 120 240;
-    }
-  }
 
-  @keyframes stroke1 {
-    100% {
-      stroke-dashoffset: 1080;
-      stroke-dasharray: 120 240;
-    }
-  }
-
-  @keyframes stroke2 {
-    100% {
-      stroke-dashoffset: 1160;
-      stroke-dasharray: 120 240;
-    }
-  }
-  @keyframes stroke3 {
-    100% {
-      stroke-dashoffset: 1240;
-      stroke-dasharray: 120 240;
-    }
-  }
-}
 /* Other styles */
 html, body {
   height: 100%;
@@ -102,15 +75,22 @@ svg {
 }
 .note{
   position:absolute;
-  font: 0.13em/1 微软雅黑, Impact;
-    text-transform: capitalize;
+  font: 16px/1 微软雅黑, Impact;
+  text-transform: capitalize;
   font-size:;
   color:white;
   top:20px;
   left:20px;
 }
 a:hover,a:visited,a:link,a:active{
-color:#ddd; 
+color:#ccc; 
+}
+
+/*兼容手机端*/
+@media (max-width: 768px){
+  .note{
+    font: 0.13em/1 微软雅黑, Impact;
+  }
 }
 </style>
 <div class="note">inspired by <a href="http://wx3.sinaimg.cn/large/0064cTs2ly1fd6gu6pt4rg30lt0ggtxv.gif" target="_blank">AlloyTeam logo</a></div>
