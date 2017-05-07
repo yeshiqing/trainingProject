@@ -1,0 +1,104 @@
+<!-- inspired by https://www.villainhr.com/page/2017/05/01/SVG%20%E5%8A%A8%E7%94%BB%E7%B2%BE%E9%AB%93#SVG%20Animation -->
+<style>
+/* Main styles */
+.text {
+  fill: none;
+  stroke-width: 4;
+  stroke-dasharray: 0 300;
+  stroke-dashoffset: 0;
+}
+
+.text:nth-child(4n + 1) {
+  stroke: #F60A0A;;
+    animation: stroke 6s  ease-in-out forwards;  
+
+}
+.text:nth-child(4n + 2) {
+  stroke: #F2FF14;
+animation: stroke1 6s  ease-in-out forwards;
+}
+
+.text:nth-child(4n + 3) {
+  stroke: #FB9505;
+animation: stroke2 6s  ease-in-out forwards;
+
+}
+.text:nth-child(4n + 4) {
+  stroke: #4dcaea;
+animation: stroke3 6s  ease-in-out forwards;
+
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 1000;
+    stroke-dasharray: 80 160;
+  }
+}
+
+@keyframes stroke1 {
+  100% {
+    stroke-dashoffset: 1080;
+    stroke-dasharray: 80 160;
+  }
+}
+
+@keyframes stroke2 {
+  100% {
+    stroke-dashoffset: 1160;
+    stroke-dasharray: 80 160;
+  }
+}
+@keyframes stroke3 {
+  100% {
+    stroke-dashoffset: 1240;
+    stroke-dasharray: 80 160;
+  }
+}
+/* Other styles */
+html, body {
+  height: 100%;
+}
+
+body {
+  background: #212121;
+  background-size: .2em 100%;
+  font: 14.5em/1 Open Sans, Impact;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+}
+.note{
+  position:absolute;
+  width:300px;
+  font: 16px/1 微软雅黑, Impact;
+    text-transform: capitalize;
+  font-size:;
+  color:white;
+  top:20px;
+  left:20px;
+}
+a:hover,a:visited{
+color:#ddd; 
+}
+</style>
+<div class="note">inspired by <a href="http://wx3.sinaimg.cn/large/0064cTs2ly1fd6gu6pt4rg30lt0ggtxv.gif" target="_blank">AlloyTeam logo</a></div>
+<svg viewBox="0 0 1160 300">
+  <!-- Symbol -->
+  <symbol id="s-text">
+    <text text-anchor="middle"
+          x="50%" y="50%" dy=".35em">
+      Netiler-DNA
+    </text>
+  </symbol>  
+
+  <!-- Duplicate symbols -->
+  <use xlink:href="#s-text" class="text"></use>
+  <use xlink:href="#s-text" class="text"></use>
+  <use xlink:href="#s-text" class="text"></use>
+  <use xlink:href="#s-text" class="text"></use>
+</svg>
