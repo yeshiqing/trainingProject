@@ -55,6 +55,34 @@ animation: stroke3 6s  ease-in-out forwards;
     stroke-dasharray: 80 160;
   }
 }
+@media all and (max-width: 768px){
+  @keyframes stroke {
+    100% {
+      stroke-dashoffset: 1000;
+      stroke-dasharray: 120 240;
+    }
+  }
+
+  @keyframes stroke1 {
+    100% {
+      stroke-dashoffset: 1080;
+      stroke-dasharray: 120 240;
+    }
+  }
+
+  @keyframes stroke2 {
+    100% {
+      stroke-dashoffset: 1160;
+      stroke-dasharray: 120 240;
+    }
+  }
+  @keyframes stroke3 {
+    100% {
+      stroke-dashoffset: 1240;
+      stroke-dasharray: 120 240;
+    }
+  }
+}
 /* Other styles */
 html, body {
   height: 100%;
@@ -74,8 +102,7 @@ svg {
 }
 .note{
   position:absolute;
-  width:300px;
-  font: 16px/1 微软雅黑, Impact;
+  font: 0.13em/1 微软雅黑, Impact;
     text-transform: capitalize;
   font-size:;
   color:white;
@@ -87,7 +114,7 @@ color:#ddd;
 }
 </style>
 <div class="note">inspired by <a href="http://wx3.sinaimg.cn/large/0064cTs2ly1fd6gu6pt4rg30lt0ggtxv.gif" target="_blank">AlloyTeam logo</a></div>
-<svg viewBox="0 0 1460 300">
+<svg viewBox="0 0 1500 300">
   <!-- Symbol -->
   <symbol id="s-text">
     <text text-anchor="middle"
