@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    canvas{
+        border:1px solid black;
+    }
+</style>
+<body>
+    <script>
+        var myGamePiece = null;
+        function startGame() {
+            myGameArea.start();
+            myGamePiece = new Component(30, 30, "red", 10, 120);
+        }
+        var myGameArea = {
+            canvas: document.createElement("canvas"),
+            context: null,
+            start: function () {
+                this.canvas.width = 480;
+                this.canvas.height = 270;
+                this.context = this.canvas.getContext('2d');
+                document.body.insertBefore(this.canvas, document.body.children[0]);
+                this.interval = setInterval(updateGameArea, 20);
+            },
+            clear: function(){
+                this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            }
+        }
+
+        function Component(width, height, color, x, y) {
+            this.width = width;
+            this.height = height;
+            this.speedX = 0;
+            this.speedY = 0;
+            this.x = x;
+            this.y = y;
+            this.update = function(){
+                var ctx = myGameArea.context;
+                ctx.fillStyle = color;
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+            }
+            this.newPos = function(){
+                this.x += this.speedX;
+                this.y += this.speedY; 
+            }
+        }
+        
+        function updateGameArea(){
+            myGameArea.clear();
+            myGamePiece.newPos();
+            myGamePiece.update();
+        }
+        
+        function moveup(){
+            myGamePiece.speedY -= 1;
+        }
+
+        function movedown(){
+            myGamePiece.speedY += 1; 
+        }
+
+        function moveleft(){
+            myGamePiece.speedX -= 1;
+        }
+        
+        function moveright(){
+            myGamePiece.speedX += 1;
+        }
+
+        function stopMove(){
+            myGamePiece.speedX = 0;
+            myGamePiece.speedY = 0;
+        }
+
+        startGame();
+    </script>
+    <div>
+        <button ontouchstart="moveup()" onmouseup="stopMove()" onmousedown="moveup()">UP</button>
+        <button ontouchstart="movedown()" onmouseup="stopMove()" onmousedown="movedown()">DOWN</button>
+        <button ontouchstart="moveleft()" onmouseup="stopMove()" onmousedown="moveleft()">LEFT</button>
+        <button ontouchstart="moveright()" onmouseup="stopMove()" onmousedown="moveright()">RIGHT</button>
+    </div>
+</body>
+
+</html>
