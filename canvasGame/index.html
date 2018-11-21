@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>canvasGame</title>
 </head>
 <style>
     body{
@@ -45,8 +45,8 @@
                 //     document.getElementById("mouseCoordinate").innerHTML = "("+myGameArea.x+","+myGameArea.y +")";
                 // },false);
                 window.addEventListener("touchmove", function(e){
-                    myGameArea.x = e.touches[0].screenX;
-                    myGameArea.y = e.touches[0].screenY;
+                    myGameArea.x = e.touches[0].pageX;
+                    myGameArea.y = e.touches[0].pageY;
                     document.getElementById("touchCoordinate").innerHTML = "("+myGameArea.x+","+myGameArea.y +")";
                 },false);
             },
