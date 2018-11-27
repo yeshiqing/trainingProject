@@ -21,53 +21,47 @@
     }
 
     canvas {
-        width: 100%;
-        height: 100%;
         box-sizing: border-box;
+        border:2px solid grey;
+        width:100%;
     }
 </style>
 
 <body>
     <script>
         var myGamePiece = null;
-        var myDownBtn = null;
-        var myUpBtn = null;
-        var myLeftBtn = null;
-        var myRightBtn = null;
+        var myObstacles = [];
         function startGame() {
             myGameArea.start();
             myGamePiece = new Component(30, 30, "red", 10, 120);
-            myUpBtn = new Component(30, 30, "blue", 50, 10);
-            myDownBtn = new Component(30, 30, "blue", 50, 70);
-            myLeftBtn = new Component(30, 30, "blue", 20, 40);
-            myRightBtn = new Component(30, 30, "blue", 80, 40);
         }
         var myGameArea = {
             canvas: document.createElement("canvas"),
             context: null,
             start: function () {
                 // this.canvas.style.cursor = "none"; //hide the original cursor
+                this.frameNo = 0;
                 this.canvas.width = document.body.clientWidth;
-                this.canvas.height = document.body.clientHeight;
+                this.canvas.height = document.body.clientHeight-100;
                 this.context = this.canvas.getContext('2d');
                 document.body.insertBefore(this.canvas, document.body.children[0]);
                 this.interval = setInterval(updateGameArea, 20);
-                window.addEventListener('mousedown', function (e) {
-                    myGameArea.x = e.pageX;
-                    myGameArea.y = e.pageY;
-                })
-                window.addEventListener('mouseup', function (e) {
-                    myGameArea.x = false;
-                    myGameArea.y = false;
-                })
-                window.addEventListener('touchstart', function (e) {
-                    myGameArea.x = e.pageX;
-                    myGameArea.y = e.pageY;
-                })
-                window.addEventListener('touchend', function (e) {
-                    myGameArea.x = false;
-                    myGameArea.y = false;
-                })
+                // window.addEventListener('mousedown', function (e) {
+                //     myGameArea.x = e.pageX;
+                //     myGameArea.y = e.pageY;
+                // })
+                // window.addEventListener('mouseup', function (e) {
+                //     myGameArea.x = false;
+                //     myGameArea.y = false;
+                // })
+                // window.addEventListener('touchstart', function (e) {
+                //     myGameArea.x = e.pageX;
+                //     myGameArea.y = e.pageY;
+                // })
+                // window.addEventListener('touchend', function (e) {
+                //     myGameArea.x = false;
+                //     myGameArea.y = false;
+                // })
                 window.addEventListener("touchmove", function (e) {
                     myGameArea.x = e.touches[0].pageX;
                     myGameArea.y = e.touches[0].pageY;
@@ -76,6 +70,10 @@
             },
             clear: function () {
                 this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            },
+            stop: function () {
+                alert(1)
+                clearInterval(this.interval);
             }
         }
 
@@ -111,35 +109,90 @@
                 }
                 return clicked;
             }
+            this.crashWith = function (otherobj) {
+                myleft = this.x;
+                myright = this.x + this.width;
+                mytop = this.y;
+                mybottom = this.y + this.height;
+                otherleft = otherobj.x;
+                otherright = otherobj.x + otherobj.width;
+                othertop = otherobj.y;
+                otherbottom = otherobj.y + otherobj.height;
+                var crash = true;
+                if (myright < otherleft || myleft > otherright || mytop > otherbottom || mybottom < othertop) {
+                    crash = false;
+                }
+                return crash;
+            }
         }
 
         function updateGameArea() {
+            var x, height, gap, minHeight, maxHeight, minGap, maxGap;
             myGameArea.clear();
-            if (myGameArea.x && myGameArea.y) {
-                if (myUpBtn.clicked()) {
-                    myGamePiece.y -= 1;
-                }
-                    if (myDownBtn.clicked()) {
-                        myGamePiece.y += 1;
-                    }
-                    if (myLeftBtn.clicked()) {
-                        myGamePiece.x -= 1;
-                    }
-                    if (myRightBtn.clicked()) {
-                        myGamePiece.x += 1;
-                    }
+            myGameArea.frameNo += 1;
+            if (myGameArea.frameNo == 1 || everyInterval(300)) {
+                x = myGameArea.canvas.width;
+                y = myGameArea.canvas.height;
+                minHeight = 20;
+                maxHeight = 200;
+                height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+                minGap = 50;
+                maxGap = 200;
+                gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
+                myObstacles.push(new Component(10, height, "green", x, 0));
+                myObstacles.push(new Component(10, y-height-gap, "green", x, height + gap));
             }
+            for (var i = 0; i < myObstacles.length; i++) {
+                if (myGamePiece.crashWith(myObstacles[i])) {
+                    myGameArea.stop();
+                    return;
+                }
+            }
+            for (var i = 0; i < myObstacles.length; i++) {
+                myObstacles[i].x -= 1;
+                myObstacles[i].update();
+            }
+
+            myGamePiece.newPos();
             myGamePiece.update();
-            myDownBtn.update();
-            myUpBtn.update();
-            myLeftBtn.update();
-            myRightBtn.update();
         }
 
+        function everyInterval(n) {
+            if (myGameArea.frameNo % n == 0) {
+                return true
+            } else {
+                return false;
+            }
+        }
+        function moveup() {
+            myGamePiece.speedY = -1; 
+        }
 
+        function movedown() {
+            myGamePiece.speedY = 1; 
+        }
+
+        function moveleft() {
+            myGamePiece.speedX = -1; 
+        }
+
+        function moveright() {
+            myGamePiece.speedX = 1; 
+        }
+
+        function clearmove() {
+            myGamePiece.speedX = 0; 
+            myGamePiece.speedY = 0; 
+        }
         startGame();
     </script>
-    <!-- <div id="mouseCoordinate"></div> -->
+<div style="text-align:center;width:480px;">
+    <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()">UP</button><br><br>
+    <button onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()">LEFT</button>
+    <button onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()">RIGHT</button><br><br>
+    <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()">DOWN</button>
+</div>
+<!-- <div id="mouseCoordinate"></div> -->
     <div id="touchCoordinate"></div>
 </body>
 
